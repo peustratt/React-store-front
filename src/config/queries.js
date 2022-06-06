@@ -1,5 +1,5 @@
 export const CATEGORY_QUERY = `
-query CategoryQuery {
+query GetCategories {
   categories{
     name
   }
@@ -7,14 +7,9 @@ query CategoryQuery {
 
 export const CURRENCIES_QUERY = `
 query GetCurrencies {
-  category {
-    products {
-      prices {
-        currency {
-          label
-        }
-      }
-    }
+  currencies {
+    label
+    symbol
   }
 }
 `
