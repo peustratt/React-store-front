@@ -8,7 +8,8 @@ import { createStore } from 'redux';
 import allReducers from './reducers';
 
 import Product from './components/Product'
-import Header from  './components/Header'
+import Navbar from  './components/Navbar'
+import GlobalStyle from './globalStyles';
 
 let store = createStore(
     allReducers,
@@ -25,7 +26,7 @@ class App extends Component {
     }
 
     handleCategory = ({ target }) => {
-        this.setState({ category: target.innerText })
+        this.setState({ category: target.innerText.toLowerCase() })
     }
 
     onCategoryChange = () => {
@@ -66,14 +67,7 @@ class App extends Component {
     }
 
     render() {
-        const categoriesEl = this.state.categories.map((category, index) => {
-            return (
-                <li key={index}
-                    onClick={this.handleCategory}>
-                    {category.name}
-                </li>
-            )
-        })
+        
         const productsEl = this.state.products.map((product) => {
             return (
                 <Product
@@ -98,10 +92,10 @@ class App extends Component {
         
         return (
             <Provider store={store}>
+                <GlobalStyle/>
                 <div className="App">
-                    <Header/>
+                    <Navbar categories={this.state.categories} handleCategory={this.handleCategory} category={this.state.category}/>
                     {currenciesEL}
-                    {categoriesEl}
                     <Products>
                         {productsEl.slice(0, 6)}
                     </Products>
