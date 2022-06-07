@@ -3,8 +3,17 @@ import { CATEGORY_QUERY, CURRENCIES_QUERY, PRODUCTS_QUERY } from './config/queri
 import { client } from './config/client-graphql';
 import { gql } from '@apollo/client';
 import styled from 'styled-components';
+import { Provider } from 'react-redux';
+import { createStore } from 'redux';
+import allReducers from './reducers';
 
 import Product from './components/Product'
+import Header from  './components/Header'
+
+let store = createStore(
+    allReducers,
+    window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__()
+);
 
 class App extends Component {
     state = {
@@ -86,14 +95,18 @@ class App extends Component {
                 </li>
             )
         })
+        
         return (
-            <div className="App">
-                {currenciesEL}
-                {categoriesEl}
-                <Products>
-                    {productsEl.slice(0, 6)}
-                </Products>
-            </div>
+            <Provider store={store}>
+                <div className="App">
+                    <Header/>
+                    {currenciesEL}
+                    {categoriesEl}
+                    <Products>
+                        {productsEl.slice(0, 6)}
+                    </Products>
+                </div>
+            </Provider>
         );
     }
 }
@@ -105,3 +118,4 @@ const Products = styled.div`
     flex-wrap: wrap;
     gap: 1em;
 `
+
