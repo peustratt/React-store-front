@@ -9,10 +9,12 @@ class Product extends Component {
         
         return (
             <Div inStock={this.props.inStock} className="Component">
+
                 <div className="img-wrapper">
                     {!this.props.inStock && <span>Out of stock</span>}
                     <img src={this.props.gallery[0]} alt="none"/>
                 </div>
+                
                 <h3>{this.props.brand} {this.props.name}</h3>
                 <span>{price.currency.symbol}{price.amount}</span>
 
@@ -21,7 +23,9 @@ class Product extends Component {
                         name: this.props.name,
                         id: this.props.id,
                         prices: this.props.prices
-                    })}>add</button>
+                    })}>
+                        add
+                </button>
             </Div>
         )
     }

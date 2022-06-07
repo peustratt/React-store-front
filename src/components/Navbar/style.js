@@ -5,6 +5,7 @@ const Navbar = styled.nav`
     height: 80px;
     font-family: 'Raleway', sans-serif;
     font-weight: 600;
+    font-size: 16px;
     > ul {
         display: flex;
         list-style: none;
@@ -17,7 +18,8 @@ const Navbar = styled.nav`
             display: flex;
             align-items: center;
             height: 100%;
-            width: 100px;
+            width: fit-content;
+            padding: 0 1.4em;
             justify-content: center;
             font-size: inherit;
             text-transform: uppercase;
@@ -30,7 +32,7 @@ const Navbar = styled.nav`
                 background: #5ECE7B;
                 bottom: 0;
                 width: 100%;
-                border-radius: 4px;
+                /* border-radius: 4px; */
                 transition: 120ms ease-in-out;
             } 
         }

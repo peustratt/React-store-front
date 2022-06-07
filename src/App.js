@@ -8,7 +8,7 @@ import { createStore } from 'redux';
 import allReducers from './reducers';
 
 import Product from './components/Product'
-import Navbar from  './components/Navbar'
+import Navbar from './components/Navbar'
 import GlobalStyle from './globalStyles';
 
 let store = createStore(
@@ -23,6 +23,10 @@ class App extends Component {
         products: [],
         currencies: [],
         currentCurrency: ''
+    }
+
+    handleCurrency = ({ target }) => {
+        this.setState({ currency: target.innerText.toLowerCase() })
     }
 
     handleCategory = ({ target }) => {
@@ -67,7 +71,7 @@ class App extends Component {
     }
 
     render() {
-        
+
         const productsEl = this.state.products.map((product) => {
             return (
                 <Product
@@ -81,21 +85,19 @@ class App extends Component {
                 />
             )
         })
-        const currenciesEL = this.state.currencies.map((currency, index) => {
-            return (
-                <li key={index}
-                    onClick={(e) => { this.setState({ currentCurrency: e.target.innerText }) }}>
-                    {currency.label}
-                </li>
-            )
-        })
-        
+
         return (
             <Provider store={store}>
-                <GlobalStyle/>
+                <GlobalStyle />
                 <div className="App">
-                    <Navbar categories={this.state.categories} handleCategory={this.handleCategory} category={this.state.category}/>
-                    {currenciesEL}
+                    <Navbar
+                        categories={this.state.categories}
+                        handleCategory={this.handleCategory}
+                        category={this.state.category}
+                        currencies={this.state.currencies}
+                        currentCurrency={this.state.currentCurrency}
+                        handleCurrency={this.handleCurrency}
+                    />
                     <Products>
                         {productsEl.slice(0, 6)}
                     </Products>
@@ -110,6 +112,6 @@ export default App;
 const Products = styled.div`
     display: flex;
     flex-wrap: wrap;
-    gap: 1em;
+    gap: 2.5em;
 `
 

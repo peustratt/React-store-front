@@ -24,7 +24,7 @@ export const Div = styled.div`
             width: fit-content;
         }
         > img {
-            object-fit: fill;
+            object-fit: contain;
             height: 100%;
             width: 100%;
             opacity: ${props => !props.inStock ? .5 : 1}
