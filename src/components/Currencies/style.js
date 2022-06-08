@@ -1,12 +1,8 @@
 import styled from 'styled-components';
 
-const Select = styled.select`
-    visibility: hidden;
+const Ul = styled.ul`
     background: red;
     text-align: right;
-    > option {
-        visibility: visible;
-    }
 `
 
 const Modal = styled.div`
@@ -15,4 +11,4 @@ const Modal = styled.div`
     z-index: 2;
 `
 
-export {Select, Modal};
+export {Ul, Modal};

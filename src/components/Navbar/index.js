@@ -1,11 +1,34 @@
-import { Component } from "react";
+import React, { Component } from "react";
 import { connect } from 'react-redux';
 
 import { addProduct } from '../../actions/cartActions';
 import Nav from './style'
-import Currency from '../Currency'
+import Currencies from '../Currencies'
 
 class Navbar extends Component {
+    container = React.createRef();
+    state = {
+        currencyDropdown: false,
+    }
+
+    handleClickOutside({ target }) {
+        if(this.container.current && !this.container.current.contains(target)) {
+            this.setState({ currencyDropdown: false })
+        }
+    }
+
+    handleCurrencyDropdown = () => {
+        this.setState(prevState => ({currencyDropdown: !prevState.currencyDropdown}))
+    }
+
+    componentDidMount() {
+        document.addEventListener('mousedown', this.handleClickOutside);
+        console.log(this.container)
+    }
+
+    componentWillUnmount() {
+        document.removeEventListener('mousedown', this.handleClickOutside)
+    }
 
     render() {
         const categoriesEl = this.props.categories.map((category, index) => {
@@ -23,11 +46,18 @@ class Navbar extends Component {
             <Nav>
                 <ul className="categories">{categoriesEl}</ul>
                 {/* <span>{this.props.cart.length}</span> */}
-                <Currency
-                    currencies={this.props.currencies}
-                    currentCurrency={this.props.currentCurrency}
-                    handleCurrency={this.props.handleCurrency} 
-                />
+                <div className="container" ref={this.container}>
+                    <button type="button" onClick={this.handleCurrencyDropdown}>{this.props.currentCurrency}</button>
+                    <div className="dropdown">
+                        {this.state.currencyDropdown && 
+                        <Currencies
+                            currencies={this.props.currencies}
+                            currentCurrency={this.props.currentCurrency}
+                            handleCurrency={this.props.handleCurrency}
+                            handleCurrencyDropdown={this.handleCurrencyDropdown}
+                        />}
+                    </div>
+                </div>
             </Nav>
         )
     }

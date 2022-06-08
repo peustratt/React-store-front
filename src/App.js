@@ -26,7 +26,8 @@ class App extends Component {
     }
 
     handleCurrency = ({ target }) => {
-        this.setState({ currentCurrency: target.value })
+        console.log(target)
+        this.setState({ currentCurrency: target.innerText.split(' ')[1] })
     }
 
     handleCategory = ({ target }) => {
