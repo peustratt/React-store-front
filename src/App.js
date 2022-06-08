@@ -26,7 +26,7 @@ class App extends Component {
     }
 
     handleCurrency = ({ target }) => {
-        this.setState({ currency: target.innerText.toLowerCase() })
+        this.setState({ currentCurrency: target.value })
     }
 
     handleCategory = ({ target }) => {

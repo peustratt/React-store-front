@@ -1,6 +1,10 @@
 import styled from 'styled-components';
 
 const Navbar = styled.nav`
+background-color: blue;
+    position: relative;
+    z-index: 30;
+    display: flex;
     padding: 0 100px;
     height: 80px;
     font-family: 'Raleway', sans-serif;

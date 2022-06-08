@@ -4,7 +4,6 @@ import { connect } from 'react-redux';
 import { addProduct } from '../../actions/cartActions';
 import Nav from './style'
 import Currency from '../Currency'
-import Select from "../Currency/style";
 
 class Navbar extends Component {
 
@@ -23,11 +22,12 @@ class Navbar extends Component {
         return (
             <Nav>
                 <ul className="categories">{categoriesEl}</ul>
-                <span>{this.props.cart.length}</span>
-                <Select
+                {/* <span>{this.props.cart.length}</span> */}
+                <Currency
                     currencies={this.props.currencies}
                     currentCurrency={this.props.currentCurrency}
-                    handleCurrency={this.handleCurrency} />
+                    handleCurrency={this.props.handleCurrency} 
+                />
             </Nav>
         )
     }
