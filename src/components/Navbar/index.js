@@ -6,28 +6,12 @@ import Nav from './style'
 import Currencies from '../Currencies'
 
 class Navbar extends Component {
-    container = React.createRef();
     state = {
         currencyDropdown: false,
     }
 
-    handleClickOutside({ target }) {
-        if(this.container.current && !this.container.current.contains(target)) {
-            this.setState({ currencyDropdown: false })
-        }
-    }
-
     handleCurrencyDropdown = () => {
-        this.setState(prevState => ({currencyDropdown: !prevState.currencyDropdown}))
-    }
-
-    componentDidMount() {
-        document.addEventListener('mousedown', this.handleClickOutside);
-        console.log(this.container)
-    }
-
-    componentWillUnmount() {
-        document.removeEventListener('mousedown', this.handleClickOutside)
+        this.setState(prevState => ({ currencyDropdown: !prevState.currencyDropdown }))
     }
 
     render() {
@@ -47,17 +31,21 @@ class Navbar extends Component {
                 <ul className="categories">{categoriesEl}</ul>
                 {/* <span>{this.props.cart.length}</span> */}
                 <div className="container" ref={this.container}>
-                    <button type="button" onClick={this.handleCurrencyDropdown}>{this.props.currentCurrency}</button>
+                    <div className="btns-wrapper">
+                        <button type="button" onClick={this.handleCurrencyDropdown}>{this.props.currentCurrency}</button>
+                        <button type="button">{this.props.cart.length}</button>
+                    </div>
                     <div className="dropdown">
-                        {this.state.currencyDropdown && 
-                        <Currencies
-                            currencies={this.props.currencies}
-                            currentCurrency={this.props.currentCurrency}
-                            handleCurrency={this.props.handleCurrency}
-                            handleCurrencyDropdown={this.handleCurrencyDropdown}
-                        />}
+                        {this.state.currencyDropdown &&
+                            <Currencies
+                                currencies={this.props.currencies}
+                                currentCurrency={this.props.currentCurrency}
+                                handleCurrency={this.props.handleCurrency}
+                                handleCurrencyDropdown={this.handleCurrencyDropdown}
+                            />}
                     </div>
                 </div>
+                {this.state.currencyDropdown && <div className="modal" onClick={this.handleCurrencyDropdown}></div>}
             </Nav>
         )
     }

@@ -4,6 +4,7 @@ const Navbar = styled.nav`
     position: relative;
     z-index: 30;
     display: flex;
+    align-items: center;
     padding: 0 100px;
     height: 80px;
     font-family: 'Raleway', sans-serif;
@@ -47,6 +48,32 @@ const Navbar = styled.nav`
 
             }
         }
+    }
+
+    .container {
+        position: relative;
+        display: inline-block;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        width: 70px;
+        
+        .btns-wrapper {
+            display: flex;
+            justify-content: space-around;
+            align-items: center;
+            width: 100%;
+        }
+        .dropdown {
+            position: absolute;
+            width: 100%;
+        }
+    }
+
+    .modal {
+        position: fixed;
+        inset: 0;
+        z-index: 1;
     }
 `
 

@@ -1,14 +1,18 @@
 import styled from 'styled-components';
 
 const Ul = styled.ul`
-    background: red;
-    text-align: right;
-`
-
-const Modal = styled.div`
-    position: fixed;
-    inset: 0;
+    position: relative;
     z-index: 2;
+    text-align: right;
+    width: 100%;
+
+    > div {
+        padding: .2em .4em .2em .3em;
+        transition: 10ms ease-in;
+        &:hover {
+            background: #EEEEEE;
+        }
+    }
 `
 
-export {Ul, Modal};
+export default Ul;

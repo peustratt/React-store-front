@@ -1,5 +1,5 @@
 import { Component } from "react";
-import { Ul, Modal } from "./style";
+import Ul from "./style";
 
 class Currencies extends Component {
     render() {
