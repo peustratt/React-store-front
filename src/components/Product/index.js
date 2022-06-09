@@ -5,7 +5,7 @@ import { addProduct } from '../../actions/cartActions'
 
 class Product extends Component {
     render() {
-        const price = this.props.prices.find(price => price.currency.label === this.props.currentCurrency)
+        const price = this.props.prices.find(price => price.currency.label === this.props.currentCurrency.label)
         
         return (
             <Div inStock={this.props.inStock} className="Component">

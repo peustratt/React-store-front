@@ -22,12 +22,12 @@ class App extends Component {
         category: "",
         products: [],
         currencies: [],
-        currentCurrency: ''
+        currentCurrency: {}
     }
 
     handleCurrency = ({ target }) => {
-        console.log(target)
-        this.setState({ currentCurrency: target.innerText.split(' ')[1] })
+        const [symbol, label] = target.innerText.split(' ');
+        this.setState({ currentCurrency: { symbol, label } })
     }
 
     handleCategory = ({ target }) => {
@@ -52,7 +52,7 @@ class App extends Component {
             query: gql`${CURRENCIES_QUERY}`
         }).then(res => this.setState({
             currencies: res.data.currencies,
-            currentCurrency: res.data.currencies[0].label
+            currentCurrency: res.data.currencies[0]
         }));
 
         client.query({
@@ -99,6 +99,7 @@ class App extends Component {
                         currentCurrency={this.state.currentCurrency}
                         handleCurrency={this.handleCurrency}
                     />
+                    <H2>{this.state.category}</H2>
                     <Products>
                         {productsEl.slice(0, 6)}
                     </Products>
@@ -111,8 +112,18 @@ class App extends Component {
 export default App;
 
 const Products = styled.div`
+    padding: 0 100px;
     display: flex;
     flex-wrap: wrap;
     gap: 2.5em;
+    margin-top: 3em;
+`
+const H2 = styled.h2`
+    color: #1D1F22;
+    font-size: 42px;
+    font-family: 'Raleway', sans-serif;
+    font-weight: 400;
+    margin-top: 1.5em;
+    padding-left: 100px;
 `
 

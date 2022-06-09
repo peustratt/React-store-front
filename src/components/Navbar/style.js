@@ -51,6 +51,7 @@ const Navbar = styled.nav`
     }
 
     .container {
+        margin-left: auto;
         position: relative;
         display: inline-block;
         flex-direction: column;
@@ -63,12 +64,71 @@ const Navbar = styled.nav`
             justify-content: space-around;
             align-items: center;
             width: 100%;
+            text-align: center;
+            button {
+                display: flex;
+                align-items: center;
+                gap: .4em;
+                font-size: 18px;
+                font-weight: 500;
+                background: transparent;              
+                border: 0;
+                font-family: inherit;
+
+                .hat-wrapper {
+                    transition: 120ms cubic-bezier(0.075, 0.82, 0.165, 1);
+                    transform-origin: center;
+                    width: 11px;
+                    &.is-open {
+                        transform: rotate(-180deg) translate(-1px, 2px);
+                    }
+                }
+                    .hat {
+                        margin-right: 10px;
+                        position: relative;
+                        content: "";
+                        display: block;
+                        width: 6px;
+                        height: 1.5px;
+                        background: black;
+                        transform-origin: right;
+                        transform: rotate(135deg) translate(2px, -2px);
+                        border-radius: 2px;
+                        
+    
+                        &::before {
+                            position: absolute;
+                            content: "";
+                            width: 1.5px;
+                            height: inherit;
+                            background: black;
+                            top: 0px;
+                            right: 0px;
+                            transform-origin: right;
+                            transform: rotate(90deg) translateX(50%);
+                            border-radius: 2px 0 0 0;
+                        }
+
+                        &::after{
+                            position: absolute;
+                            content: "";
+                            width: 100%;
+                            height: inherit;
+                            background: black;
+                            left: 100%;
+                            transform-origin: left;
+                            transform: rotate(90deg);
+                            border-radius: inherit;
+                        }
+                    }
+                }
+            }
         }
         .dropdown {
             position: absolute;
             width: 100%;
+            box-shadow: 0px 4px 35px rgba(168, 172, 176, 0.19);
         }
-    }
 
     .modal {
         position: fixed;
