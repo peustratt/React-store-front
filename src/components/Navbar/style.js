@@ -57,7 +57,7 @@ const Navbar = styled.nav`
         flex-direction: column;
         justify-content: center;
         align-items: center;
-        width: 70px;
+        width: 80px;
         
         .btns-wrapper {
             display: flex;
@@ -66,6 +66,7 @@ const Navbar = styled.nav`
             width: 100%;
             text-align: center;
             button {
+                position: relative;
                 display: flex;
                 align-items: center;
                 gap: .4em;
@@ -74,6 +75,26 @@ const Navbar = styled.nav`
                 background: transparent;              
                 border: 0;
                 font-family: inherit;
+
+                >.cart-counter {
+                    position: absolute;
+                    background-color: black;
+                    height: 20px;
+                    width: 20px;
+                    left: 100%;
+                    transform: translate(-50%, -50%);
+                    border-radius: 50%;
+                    color: #fff;
+                    display: flex;
+                    align-items: center;
+                    justify-content: center;
+
+                    >span {
+                        margin-bottom: 2px;
+                        font-size: 15px;
+                    }
+                    
+                }
 
                 .hat-wrapper {
                     transition: 120ms cubic-bezier(0.075, 0.82, 0.165, 1);

@@ -33,7 +33,7 @@ class Navbar extends Component {
                 <div className="container" ref={this.container}>
                     <div className="btns-wrapper">
                         <button type="button" onClick={this.handleCurrencyDropdown}>{this.props.currentCurrency.symbol}<div className={`hat-wrapper ${this.state.currencyDropdown ? 'is-open' : ''}`}><span className="hat"></span></div></button>
-                        <button type="button">{this.props.cart.length}</button>
+                        <button type="button"><img src="./Empty-Cart.svg"></img><div className="cart-counter"><span>{this.props.cart.length}</span></div></button>
                     </div>
                     <div className="dropdown">
                         {this.state.currencyDropdown &&
