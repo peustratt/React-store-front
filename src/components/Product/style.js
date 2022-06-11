@@ -1,6 +1,6 @@
 import styled from 'styled-components';
 
-export const Div = styled.div`
+export const ProductContainer = styled.div`
     color: ${props => !props.inStock ? '#8D8F9A' : '#1D1F22'};
     padding: 1em;
     transition: 100ms ease-in-out;

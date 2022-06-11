@@ -1,5 +1,5 @@
 import { Component } from "react";
-import { Div } from './style'
+import { ProductContainer } from './style'
 import { connect } from 'react-redux';
 import { addProduct } from '../../actions/cartActions'
 
@@ -8,7 +8,7 @@ class Product extends Component {
         const price = this.props.prices.find(price => price.currency.label === this.props.currentCurrency.label)
         
         return (
-            <Div inStock={this.props.inStock} className="Component">
+            <ProductContainer inStock={this.props.inStock} className="Component">
 
                 <div className="img-wrapper">
                     {!this.props.inStock && <span>Out of stock</span>}
@@ -21,12 +21,15 @@ class Product extends Component {
                 <button onClick={() => this.props.addProduct(
                     {
                         name: this.props.name,
-                        id: this.props.id,
-                        prices: this.props.prices
+                        brand: this.props.brand,
+                        id: this.props.productId,
+                        prices: this.props.prices,
+                        attributes: this.props.attributes,
+
                     })}>
                         add
                 </button>
-            </Div>
+            </ProductContainer>
         )
     }
 }

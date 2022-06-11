@@ -10,6 +10,7 @@ import allReducers from './reducers';
 import Product from './components/Product'
 import Navbar from './components/Navbar'
 import GlobalStyle from './globalStyles';
+import CartOverlay from './components/CartOverlay';
 
 let store = createStore(
     allReducers,
@@ -35,7 +36,7 @@ class App extends Component {
     }
 
     onCategoryChange = () => {
-        console.log(this.state)
+        // console.log(this.state)
         client.query({
             query: gql`${PRODUCTS_QUERY}`,
             variables: {
@@ -77,12 +78,14 @@ class App extends Component {
             return (
                 <Product
                     key={product.id}
+                    productId={product.id}
                     name={product.name}
                     brand={product.brand}
                     inStock={product.inStock}
                     gallery={product.gallery}
                     prices={product.prices}
                     currentCurrency={this.state.currentCurrency}
+                    attributes={product.attributes}
                 />
             )
         })
@@ -99,10 +102,14 @@ class App extends Component {
                         currentCurrency={this.state.currentCurrency}
                         handleCurrency={this.handleCurrency}
                     />
+                    <CartOverlay currentCurrency={this.state.currentCurrency} />
                     <H2>{this.state.category}</H2>
                     <Products>
                         {productsEl.slice(0, 6)}
                     </Products>
+
+
+                    
                 </div>
             </Provider>
         );

@@ -6,8 +6,9 @@ const Ul = styled.ul`
     text-align: right;
     width: 100%;
 
-    > div {
-        padding: .2em .4em .2em .3em;
+    > li {
+        list-style: none;
+        padding: .2em .8em .2em .3em;
         transition: 10ms ease-in;
         &:hover {
             background: #EEEEEE;
