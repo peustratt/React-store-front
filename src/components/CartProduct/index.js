@@ -7,8 +7,8 @@ class CartProduct extends Component {
     render() {
         const product = this.props.product;
         const price = product.prices.find(price => price.currency.label === this.props.currentCurrency.label)
-        const attributesEl = product.attributes.map(attribute => { 
-            return <Attribute attribute={attribute}/> 
+        const attributesEl = product.attributes.map((attribute,index) => { 
+            return <Attribute key={index} attribute={attribute}/> 
         })
 
         return (

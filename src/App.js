@@ -6,11 +6,14 @@ import styled from 'styled-components';
 import { Provider } from 'react-redux';
 import { createStore } from 'redux';
 import allReducers from './reducers';
+import { BrowserRouter, Routes, Route, Link } from 'react-router-dom'
 
-import Product from './components/Product'
+
+import Home from './components/Home';
 import Navbar from './components/Navbar'
 import GlobalStyle from './globalStyles';
 import CartOverlay from './components/CartOverlay';
+import ProductDescription from './components/ProductDescription'
 
 let store = createStore(
     allReducers,
@@ -73,23 +76,6 @@ class App extends Component {
     }
 
     render() {
-
-        const productsEl = this.state.products.map((product) => {
-            return (
-                <Product
-                    key={product.id}
-                    productId={product.id}
-                    name={product.name}
-                    brand={product.brand}
-                    inStock={product.inStock}
-                    gallery={product.gallery}
-                    prices={product.prices}
-                    currentCurrency={this.state.currentCurrency}
-                    attributes={product.attributes}
-                />
-            )
-        })
-
         return (
             <Provider store={store}>
                 <GlobalStyle />
@@ -103,13 +89,10 @@ class App extends Component {
                         handleCurrency={this.handleCurrency}
                     />
                     <CartOverlay currentCurrency={this.state.currentCurrency} />
-                    <H2>{this.state.category}</H2>
-                    <Products>
-                        {productsEl.slice(0, 6)}
-                    </Products>
-
-
-                    
+                    <BrowserRouter>
+                        <Route path="/products/:productId" render={ (props) => <ProductDescription {...props} /> }/>
+                        <Route exact path="/" render={(props) => <Home {...props} category={this.state.category} products={this.state.products} currentCurrency={this.state.currentCurrency} /> } />
+                    </BrowserRouter>
                 </div>
             </Provider>
         );
@@ -117,20 +100,3 @@ class App extends Component {
 }
 
 export default App;
-
-const Products = styled.div`
-    padding: 0 100px;
-    display: flex;
-    flex-wrap: wrap;
-    gap: 2.5em;
-    margin-top: 3em;
-`
-const H2 = styled.h2`
-    color: #1D1F22;
-    font-size: 42px;
-    font-family: 'Raleway', sans-serif;
-    font-weight: 400;
-    margin-top: 1.5em;
-    padding-left: 100px;
-`
-
