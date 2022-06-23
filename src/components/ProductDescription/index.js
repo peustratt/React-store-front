@@ -1,8 +1,9 @@
 import { Component } from "react";
 import { client } from '../../config/client-graphql';
 import { gql } from '@apollo/client';
+import ProductContainer from './style';
 
-import { PRODUCT_QUERY } from '../../config/queries'
+import { PRODUCT_QUERY } from '../../config/queries';
 
 
 
@@ -17,13 +18,29 @@ class ProductDescription extends Component {
             variables: {
                 productId: this.props.match.params.productId
             }
-        }).then(res => this.setState({product: res.data.product}))
+        }).then(res => this.setState({ product: res.data.product, selectedImage: res.data.product.gallery[0] }))
     }
 
     render() {
-        console.log('product Description props: ', this.props)
+        const imgThumbnailsEl = this.state.product?.gallery?.map((img) => {
+            return (
+                <div className="gallery__img-wrapper" onClick={() => this.setState({ selectedImage: img })}>
+                    <img src={img} />
+                </div>
+            )
+        })
+
         return (
-            <div><p>{this.state.product.name}</p></div>
+            <ProductContainer>
+                <div className="gallery">
+                    {imgThumbnailsEl}
+                </div>
+                <div className="img-wrapper">
+                    <img src={this.state.selectedImage}></img>
+                </div>
+                <div className="description"></div>
+            </ProductContainer>
+
         )
     }
 }
