@@ -21,6 +21,30 @@ const ProductContainer = styled.div`
             }
         }
     }
+
+    .description {
+        display: flex;
+        flex-direction: column;
+        gap: 1em;
+        width: 500px;
+        .title {
+            font-family: 'Raleway', sans-serif;
+            font-size: 30px;
+            display: flex;
+            flex-direction: column;
+            gap: .5em;
+
+            .brand {
+                font-weight: 600;
+            }
+        }
+
+        .attributes {
+            display: flex;
+            flex-direction: column;
+            gap: 1em;
+        }
+    }
 `
 
 export default ProductContainer;
