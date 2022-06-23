@@ -5,35 +5,39 @@ import { addProduct } from '../../actions/cartActions'
 import { Link } from "react-router-dom";
 
 class Product extends Component {
+    state = {
+        loadAddtoCartBtn: false
+    }
+
     render() {
         const price = this.props.prices.find(price => price.currency.label === this.props.currentCurrency.label)
 
         return (
-            <ProductContainer inStock={this.props.inStock} className="Component">
+            <ProductContainer inStock={this.props.inStock} className="Component" onMouseEnter={() => this.setState({ loadAddtoCartBtn: true })} onMouseLeave={() => this.setState({ loadAddtoCartBtn: false })}>
 
-                <Link  className="product-link" to={`/products/${this.props.productId}`}>
+                <Link className="product-link" to={`/products/${this.props.productId}`}>
+                    <div className="img-wrapper" >
+                            {!this.props.inStock && <span>Out of stock</span>}
+                            <img src={this.props.gallery[0]} alt="none" />
+                            {this.state.loadAddtoCartBtn && <button onClick={() => this.props.addProduct(
+                                {
+                                    name: this.props.name,
+                                    brand: this.props.brand,
+                                    id: this.props.productId,
+                                    prices: this.props.prices,
+                                    attributes: this.props.attributes,
 
-                    <div className="img-wrapper">
-                        {!this.props.inStock && <span>Out of stock</span>}
-                        <img src={this.props.gallery[0]} alt="none" />
-                    </div>
+                                })}>
+                                <img src="./Empty-Cart-white.svg" alt=""></img>
+                            </button>}
+                        </div>
 
-                    <h3>{this.props.brand} {this.props.name}</h3>
-                    <span>{price.currency.symbol}{price.amount}</span>
-
-                    <button onClick={() => this.props.addProduct(
-                        {
-                            name: this.props.name,
-                            brand: this.props.brand,
-                            id: this.props.productId,
-                            prices: this.props.prices,
-                            attributes: this.props.attributes,
-
-                        })}>
-                        add
-                    </button>
-
+                        <h3>{this.props.brand} {this.props.name}</h3>
+                        <span>{price.currency.symbol}{price.amount}</span>
                 </Link>
+
+                
+
             </ProductContainer>
         )
     }
