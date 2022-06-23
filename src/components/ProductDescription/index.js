@@ -22,10 +22,10 @@ class ProductDescription extends Component {
     }
 
     render() {
-        const imgThumbnailsEl = this.state.product?.gallery?.map((img) => {
+        const imgThumbnailsEl = this.state.product?.gallery?.map((img, index) => {
             return (
-                <div className="gallery__img-wrapper" onClick={() => this.setState({ selectedImage: img })}>
-                    <img src={img} />
+                <div className="gallery__img-wrapper" key={index} onClick={() => this.setState({ selectedImage: img })}>
+                    <img src={img} alt="" />
                 </div>
             )
         })
