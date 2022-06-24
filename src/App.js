@@ -90,7 +90,7 @@ class App extends Component {
                     />
                     <CartOverlay currentCurrency={this.state.currentCurrency} />
                     <BrowserRouter>
-                        <Route path="/products/:productId" render={ (props) => <ProductDescription {...props} /> }/>
+                        <Route path="/products/:productId" render={ (props) => <ProductDescription {...props} currentCurrency={this.state.currentCurrency} /> }/>
                         <Route exact path="/" render={(props) => <Home {...props} category={this.state.category} products={this.state.products} currentCurrency={this.state.currentCurrency} /> } />
                     </BrowserRouter>
                 </div>

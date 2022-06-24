@@ -5,11 +5,9 @@ import { AttributesContainer, ValueContainer } from "./style";
 class Attribute extends Component {
     render() {
         console.log('attribute: ', this.props.attribute)
-        const El = this.props.attribute.items.map((item, index) => <ValueContainer className={`${this.props.attribute.type}`} type={this.props.attribute.type} value={item.value}>{this.props.attribute.type === 'text' ? item.displayValue : ''}</ValueContainer>)
-        // const attributeItems = this.props.attribute.items(item => {
-        //     console.log('item: ', item)
-        //     return <div>{item.displayValue}</div>
-        // })
+        const {attributeId, itemId} = this.props.selectedAttributes?.find((attribute) => attribute.attributeId === this.props.attribute.id)
+        console.log('currentItem', itemId)
+        const El = this.props.attribute.items.map((item, index) => <ValueContainer isSelected={itemId === item.id} onClick={() => this.props.handleSelectAttr(this.props.attribute.id, item.id)} key={index} className={`${this.props.attribute.type}`} type={this.props.attribute.type} value={item.value}>{this.props.attribute.type === 'text' ? item.value : ''}</ValueContainer>);
 
         return (
             <AttributesContainer type={this.props.attribute?.type}>

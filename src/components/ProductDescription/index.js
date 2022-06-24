@@ -12,7 +12,8 @@ class ProductDescription extends Component {
     state = {
         product: {
             attributes: []
-        }
+        },
+        selectedAttributes: []
     }
 
     componentDidMount() {
@@ -21,15 +22,29 @@ class ProductDescription extends Component {
             variables: {
                 productId: this.props.match.params.productId
             }
-        }).then(res => this.setState({ product: res.data.product, selectedImage: res.data.product.gallery[0] }))
+        }).then(res => {
+            const selectedAttributes = res.data.product.attributes.map(attribute => ({ attributeId: attribute.id, itemId: attribute.items[0].id }))
+            this.setState({
+                product: res.data.product,
+                selectedImage: res.data.product.gallery[0],
+                selectedAttributes: selectedAttributes
+            })
+        })
+    }
+
+    handleSelectAttr = (attributeId, itemId) => {
+        this.setState(prevState => ({selectedAttributes: prevState.selectedAttributes.map(attribute => attribute.attributeId === attributeId ? { ...attribute, itemId: itemId } : attribute)}))
     }
 
     render() {
+        console.log(this.state.product.attributes)
+        const price = this.state.product.prices?.find(price => price.currency.label === this.props.currentCurrency.label)
+
         const attributesEl = this.state.product.attributes.map((attribute, index) => {
-            return <Attribute key={index} attribute={attribute} />
+            return <Attribute key={index} attribute={attribute} handleSelectAttr={this.handleSelectAttr} selectedAttributes={this.state.selectedAttributes} />
         })
 
-        const imgThumbnailsEl = this.state.product?.gallery?.map((img, index) => {
+        const imgThumbnailsEl = this.state.product.gallery?.map((img, index) => {
             return (
                 <div className="gallery__img-wrapper" key={index} onClick={() => this.setState({ selectedImage: img })}>
                     <img src={img} alt="" />
@@ -43,7 +58,7 @@ class ProductDescription extends Component {
                     {imgThumbnailsEl}
                 </div>
                 <div className="img-wrapper">
-                    <img src={this.state.selectedImage}></img>
+                    <img src={this.state.selectedImage} alt=""></img>
                 </div>
                 <div className="description">
                     <div className="title">
@@ -54,7 +69,8 @@ class ProductDescription extends Component {
                         {attributesEl}
                     </div>
                     <div className="price">
-
+                        <span className="price-title">Price:</span>
+                        <span className="price-value">{price?.currency.symbol}{price?.amount}</span>
                     </div>
                     <button>Add to cart</button>
                     <p>description</p>

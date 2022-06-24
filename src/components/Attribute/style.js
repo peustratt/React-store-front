@@ -12,24 +12,33 @@ const AttributesContainer = styled.div`
     }
     .attribute-values {
         font-size: 18px;
+        font-family: 'Source Sans Pro', sans-serif;
         display: flex;
         align-items: center;
-        gap: 1em;
+        gap: ${props => props.type === 'text' ? '12px' : '10px'};
         width: 100%;
     }
 `
 const ValueContainer = styled.div`
+
         display: flex;
         justify-content: center;
         align-items: center;
         width: 63px;
         height: 45px;
-        border: 1px solid black;
-        background: ${props => props.type === 'text' ? 'transparent' : props.value};
+        border: 1px solid #1D1F22;
+        outline-offset: 1px;
+        background: ${props => props.type === 'text' ? '#fff' : props.value};
+        filter: ${props => props.type === 'text' && props.isSelected ? 'invert(100%)' : 'invert(0%)'};
+        color: #1D1F22;
+        font-size: 16px;
+        font-weight: 600;
+        
 
         &.swatch {
             width: 32px;
             height: 32px;
+            outline: 2px solid ${props => props.isSelected ? '#5ECE7B' : 'transparent'};
         }
 `
 export {AttributesContainer, ValueContainer};
