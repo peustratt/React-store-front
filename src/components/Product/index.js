@@ -10,7 +10,10 @@ class Product extends Component {
     }
 
     render() {
+        console.log(this.props)
         const price = this.props.prices.find(price => price.currency.label === this.props.currentCurrency.label)
+        const selectedAttributes = this.props.attributes.map(attribute => ({attributeId: attribute.id, itemId: attribute.items[0].id}))
+        console.log(selectedAttributes)
 
         return (
             <ProductContainer inStock={this.props.inStock} className="Component" onMouseEnter={() => this.setState({ loadAddtoCartBtn: true })} onMouseLeave={() => this.setState({ loadAddtoCartBtn: false })}>
@@ -26,6 +29,7 @@ class Product extends Component {
                                     id: this.props.productId,
                                     prices: this.props.prices,
                                     attributes: this.props.attributes,
+                                    selectedAttributes
 
                                 })}>
                                 <img src="./Empty-Cart-white.svg" alt=""></img>

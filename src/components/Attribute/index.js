@@ -4,10 +4,18 @@ import { AttributesContainer, ValueContainer } from "./style";
 
 class Attribute extends Component {
     render() {
-        console.log('attribute: ', this.props.attribute)
-        const {attributeId, itemId} = this.props.selectedAttributes?.find((attribute) => attribute.attributeId === this.props.attribute.id)
+        const { attributeId, itemId } = this.props.selectedAttributes?.find((attribute) => attribute.attributeId === this.props.attribute.id)
         console.log('currentItem', itemId)
-        const El = this.props.attribute.items.map((item, index) => <ValueContainer isSelected={itemId === item.id} onClick={() => this.props.handleSelectAttr(this.props.attribute.id, item.id)} key={index} className={`${this.props.attribute.type}`} type={this.props.attribute.type} value={item.value}>{this.props.attribute.type === 'text' ? item.value : ''}</ValueContainer>);
+        
+        const El = this.props.attribute.items.map(item =>
+            <ValueContainer isSelected={itemId === item.id}
+                onClick={() => this.props.handleSelectAttr(this.props.attribute.id, item.id)}
+                key={item.id}
+                className={`${this.props.attribute.type}`}
+                type={this.props.attribute.type}
+                value={item.value}>
+                {this.props.attribute.type === 'text' ? item.value : ''}
+            </ValueContainer>);
 
         return (
             <AttributesContainer type={this.props.attribute?.type}>
