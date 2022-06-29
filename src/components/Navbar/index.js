@@ -29,11 +29,10 @@ class Navbar extends Component {
         return (
             <Nav>
                 <ul className="categories">{categoriesEl}</ul>
-                {/* <span>{this.props.cart.length}</span> */}
                 <div className="container" ref={this.container}>
                     <div className="btns-wrapper">
                         <button type="button" onClick={this.handleCurrencyDropdown}>{this.props.currentCurrency.symbol}<div className={`hat-wrapper ${this.state.currencyDropdown ? 'is-open' : ''}`}><span className="hat"></span></div></button>
-                        <button type="button"><img src="./Empty-Cart.svg" alt=""></img><div className="cart-counter"><span>{this.props.cart.length}</span></div></button>
+                        <button type="button"><img src="./Empty-Cart.svg" alt=""></img><div className="cart-counter"><span>{this.props.cart.reduce((acc, product) => acc += product.quantity, 0)}</span></div></button>
                     </div>
                     <div className="dropdown">
                         {this.state.currencyDropdown &&
