@@ -1,6 +1,6 @@
 const cartReducer = (state = [], action) => {
   let duplicated = {};
-  
+
 
   switch (action.type) {
     case 'ADD_TO_CART':
@@ -8,7 +8,7 @@ const cartReducer = (state = [], action) => {
       duplicated = state.find(product => product.id === action.payload.id && JSON.stringify(product.selectedAttributes) === JSON.stringify(action.payload.selectedAttributes))
 
       if (duplicated) {
-        return state.map(product => product === duplicated ? {...product, quantity: product.quantity + 1}: product)
+        return state.map(product => product === duplicated ? { ...product, quantity: product.quantity + 1 } : product)
       }
       return [...state, { ...action.payload, quantity: 1 }]
 
@@ -20,14 +20,14 @@ const cartReducer = (state = [], action) => {
         return attribute.attributeId === action.payload.attributeId ? { ...attribute, itemId: action.payload.newItemId } : attribute
       })
 
-      
+
       duplicated = state.find(product => product.id === action.payload.productId && JSON.stringify(product.selectedAttributes) === JSON.stringify(newSelected))
       if (duplicated) {
         const newState = [...state]
-        const index = state.indexOf(duplicated)
-        newState[index] = { ...newState[index], quantity: newState[index].quantity + 1 }
-        const indexOfOldProduct = newState.indexOf(oldProduct)
-        newState.splice(indexOfOldProduct, 1)
+        let duplicatedId = newState.indexOf(duplicated)
+        newState[duplicatedId].quantity += oldProduct.quantity;
+        const oldProductIndex = newState.indexOf(oldProduct)
+        newState.splice(oldProductIndex, 1)
         return newState
       } else {
         return state.map(product => product === oldProduct ? { ...oldProduct, selectedAttributes: newSelected } : product)
