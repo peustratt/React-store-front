@@ -1,6 +1,6 @@
 import { Component } from "react";
 import Div from './style'
-import Attribute from "../Attribute";
+import CartAttribute from "../CartAttribute";
 
 class CartProduct extends Component {
 
@@ -11,16 +11,15 @@ class CartProduct extends Component {
         const price = product.prices.find(price => price.currency.label === this.props.currentCurrency.label)
         
         const attributesEl = product.attributes.map((attribute, index) => {
-            return <Attribute key={index} attribute={attribute} selectedAttributes={product.selectedAttributes} />
+            return <CartAttribute key={index} attribute={attribute} selectedAttributes={product.selectedAttributes} productId={product.id}/>
         })
-        // const attributesEl = product.attributes.map((attribute,index) => { 
-        //     return <Attribute key={index} attribute={attribute}/> 
-        // })
 
         return (
             <Div>
                 <div className="header">
                     <span>{product.name}</span>
+                    <br/>
+                    <span>{product.quantity}</span>
                 </div>
                 {attributesEl}
             </Div>

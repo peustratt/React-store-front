@@ -37,7 +37,7 @@ class ProductDescription extends Component {
     }
 
     render() {
-        console.log(this.state.product.attributes)
+        // console.log(this.state.product.attributes)
         const price = this.state.product.prices?.find(price => price.currency.label === this.props.currentCurrency.label)
 
         const attributesEl = this.state.product.attributes.map((attribute, index) => {

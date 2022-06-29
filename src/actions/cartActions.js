@@ -4,3 +4,10 @@ export const addProduct = (product) => {
         payload: product
     };
 };
+
+export const editProduct = (selectedAttribute) => {
+    return {
+        type: "EDIT_PRODUCT",
+        payload: selectedAttribute
+    }
+}

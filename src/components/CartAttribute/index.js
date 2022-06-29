@@ -1,15 +1,22 @@
 import { Component } from "react";
+import { connect } from 'react-redux';
 
+import { editProduct } from '../../actions/cartActions'
 import { AttributesContainer, ValueContainer } from "./style";
 
 class Attribute extends Component {
     render() {
-        const { attributeId, itemId } = this.props.selectedAttributes?.find((attribute) => attribute.attributeId === this.props.attribute.id)
+        const { itemId } = this.props.selectedAttributes?.find((attribute) => attribute.attributeId === this.props.attribute.id)
         // console.log('currentItem', itemId)
-        
+
         const El = this.props.attribute.items.map(item =>
             <ValueContainer isSelected={itemId === item.id}
-                onClick={() => this.props.handleSelectAttr(this.props.attribute.id, item.id)}
+                onClick={() => this.props.editProduct({
+                    productId: this.props.productId,
+                    attributeId: this.props.attribute.id,
+                    newItemId: item.id,
+                    selectedAttributes: this.props.selectedAttributes
+                })}
                 key={item.id}
                 className={`${this.props.attribute.type}`}
                 type={this.props.attribute.type}
@@ -26,4 +33,5 @@ class Attribute extends Component {
     }
 }
 
-export default Attribute;
+
+export default connect(null, { editProduct })(Attribute);

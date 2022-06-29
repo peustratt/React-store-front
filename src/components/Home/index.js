@@ -22,7 +22,7 @@ class Home extends Component {
             )
         })
 
-        console.log('home props: ', this.props)
+        // console.log('home props: ', this.props)
 
         return (
             <HomeContainer>

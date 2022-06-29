@@ -46,7 +46,7 @@ class App extends Component {
                 categoryInput: this.state.category
             }
         }).then(res => this.setState({ products: res.data.category.products }))
-        console.log('loaded new products')
+        // console.log('loaded new products')
     }
 
     componentDidMount() {
@@ -70,7 +70,7 @@ class App extends Component {
 
     componentDidUpdate(prevProps, prevState) {
         if (prevState.category !== this.state.category) {
-            console.log('categoria mudou')
+            // console.log('categoria mudou')
             this.onCategoryChange()
         }
     }
