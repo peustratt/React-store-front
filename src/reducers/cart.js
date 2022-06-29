@@ -6,30 +6,24 @@ const cartReducer = (state = [], action) => {
             return [...state, {...action.payload, quantity: 1}]
 
         case 'EDIT_PRODUCT':
-            let newSelected = []
-            const editedState = state.map(product => {
-                if (product.id === action.payload.productId && product.selectedAttributes === action.payload.selectedAttributes) {
-                    newSelected = product.selectedAttributes.map(attribute => {
-                        return attribute.attributeId === action.payload.attributeId ? { ...attribute, itemId: action.payload.newItemId } : attribute
-                    })
-                    return { ...product, selectedAttributes: newSelected };
-                } else {
-                    return product
-                }
-            });
-
+            let oldProduct = state.find(product => product.id === action.payload.productId && product.selectedAttributes === action.payload.selectedAttributes)
+            let newSelected = oldProduct.selectedAttributes.map(attribute => {
+                return attribute.attributeId === action.payload.attributeId ? { ...attribute, itemId: action.payload.newItemId } : attribute
+            })
+            
             const duplicated = state.find(product => product.id === action.payload.productId && JSON.stringify(product.selectedAttributes) === JSON.stringify(newSelected))
             if (duplicated) {
                 const newState = [...state]
-                const indexOfEdited = state.indexOf(state.find(product => product.id === action.payload.productId && product.selectedAttributes === action.payload.selectedAttributes))
                 const index = state.indexOf(duplicated)
-                newState[index] = {...newState[index], quantity: newState[index].quantity + 1}
-                newState.splice(indexOfEdited, 1)
+                newState[index] = { ...newState[index], quantity: newState[index].quantity + 1 }
+                const indexOfOldProduct = newState.indexOf(oldProduct)
+                newState.splice(indexOfOldProduct, 1)
                 console.log('duplicated', newState)
                 return newState
+            } else {
+                return state.map(product => product === oldProduct ? {...oldProduct, selectedAttributes: newSelected} : product)
             }
-            console.log('edited', editedState)
-            return editedState;
+
         default:
             return state
     };
