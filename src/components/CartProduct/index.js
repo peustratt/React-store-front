@@ -11,6 +11,7 @@ class CartProduct extends Component {
 
     render() {
         const product = this.props.product;
+        const price = product.prices.find(price => price.currency.label === this.props.currentCurrency.label)
         
         const attributesEl = product.attributes.map((attribute, index) => {
             return <CartAttribute key={index} attribute={attribute} selectedAttributes={product.selectedAttributes} productId={product.id} />
@@ -20,7 +21,7 @@ class CartProduct extends Component {
             <Div>
                 <div className="header">
                     <span>{product.name}</span>
-                    <div>{this.props.price.currency.symbol}{this.props.price.amount}</div>
+                    <div>{price.currency.symbol}{price.amount}</div>
                     <button className="increment-product" onClick={() => this.props.changeProductQuantity({id: product.id, selectedAttributes: product.selectedAttributes}, 'increment')}>+</button>
                     <button className="decrement-product" onClick={() => this.props.changeProductQuantity(product, 'decrement')}>-</button>
                     <br />

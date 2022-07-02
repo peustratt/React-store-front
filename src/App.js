@@ -8,7 +8,7 @@ import { createStore } from 'redux';
 import allReducers from './reducers';
 import { BrowserRouter, Routes, Route, Link } from 'react-router-dom'
 
-
+import { changeCurrentCurrency } from './actions/cartActions';
 import Home from './components/Home';
 import Navbar from './components/Navbar'
 import GlobalStyle from './globalStyles';
@@ -31,6 +31,7 @@ class App extends Component {
 
     handleCurrency = ({ target }) => {
         const [symbol, label] = target.innerText.split(' ');
+        store.dispatch(changeCurrentCurrency({ symbol, label }))
         this.setState({ currentCurrency: { symbol, label } })
     }
 
@@ -54,10 +55,13 @@ class App extends Component {
 
         client.query({
             query: gql`${CURRENCIES_QUERY}`
-        }).then(res => this.setState({
-            currencies: res.data.currencies,
-            currentCurrency: res.data.currencies[0]
-        }));
+        }).then(res => {
+            store.dispatch(changeCurrentCurrency(res.data.currencies[0]))
+            this.setState({
+                currencies: res.data.currencies,
+                currentCurrency: res.data.currencies[0]
+            })
+        });
 
         client.query({
             query: gql`${CATEGORY_QUERY}`
@@ -90,8 +94,8 @@ class App extends Component {
                     />
                     <CartOverlay currentCurrency={this.state.currentCurrency} />
                     <BrowserRouter>
-                        <Route path="/products/:productId" render={ (props) => <ProductDescription {...props} currentCurrency={this.state.currentCurrency} /> }/>
-                        <Route exact path="/" render={(props) => <Home {...props} category={this.state.category} products={this.state.products} currentCurrency={this.state.currentCurrency} /> } />
+                        <Route path="/products/:productId" render={(props) => <ProductDescription {...props} currentCurrency={this.state.currentCurrency} />} />
+                        <Route exact path="/" render={(props) => <Home {...props} category={this.state.category} products={this.state.products} currentCurrency={this.state.currentCurrency} />} />
                     </BrowserRouter>
                 </div>
             </Provider>
