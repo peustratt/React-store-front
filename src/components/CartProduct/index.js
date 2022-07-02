@@ -1,6 +1,9 @@
 import { Component } from "react";
 import Div from './style'
 import CartAttribute from "../CartAttribute";
+import { connect } from 'react-redux';
+
+import { changeProductQuantity } from '../../actions/cartActions'
 
 class CartProduct extends Component {
 
@@ -9,16 +12,18 @@ class CartProduct extends Component {
     render() {
         const product = this.props.product;
         const price = product.prices.find(price => price.currency.label === this.props.currentCurrency.label)
-        
+
         const attributesEl = product.attributes.map((attribute, index) => {
-            return <CartAttribute key={index} attribute={attribute} selectedAttributes={product.selectedAttributes} productId={product.id}/>
+            return <CartAttribute key={index} attribute={attribute} selectedAttributes={product.selectedAttributes} productId={product.id} />
         })
 
         return (
             <Div>
                 <div className="header">
                     <span>{product.name}</span>
-                    <br/>
+                    <button className="increment-product" onClick={() => this.props.changeProductQuantity({id: product.id, selectedAttributes: product.selectedAttributes}, 'increment')}>+</button>
+                    <button className="decrement-product" onClick={() => this.props.changeProductQuantity(product, 'decrement')}>-</button>
+                    <br />
                     <span>{product.quantity}</span>
                 </div>
                 {attributesEl}
@@ -27,4 +32,4 @@ class CartProduct extends Component {
     }
 }
 
-export default CartProduct;
+export default connect(null, {changeProductQuantity})(CartProduct);
