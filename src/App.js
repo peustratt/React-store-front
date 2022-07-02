@@ -83,7 +83,7 @@ class App extends Component {
         return (
             <Provider store={store}>
                 <GlobalStyle />
-                <div className="App">
+                <AppContainer className="App">
                     <Navbar
                         categories={this.state.categories}
                         handleCategory={this.handleCategory}
@@ -97,10 +97,14 @@ class App extends Component {
                         <Route path="/products/:productId" render={(props) => <ProductDescription {...props} currentCurrency={this.state.currentCurrency} />} />
                         <Route exact path="/" render={(props) => <Home {...props} category={this.state.category} products={this.state.products} currentCurrency={this.state.currentCurrency} />} />
                     </BrowserRouter>
-                </div>
+                </AppContainer>
             </Provider>
         );
     }
 }
 
 export default App;
+
+const AppContainer = styled.div`
+    display: relative;
+`

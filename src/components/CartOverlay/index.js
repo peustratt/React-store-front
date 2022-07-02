@@ -7,7 +7,7 @@ import CartProduct from '../CartProduct'
 class CartOverlay extends Component {
     render() {
         const productsEL = this.props.cart.products.map((product, index) => {
-            return <CartProduct key={index} product={product} currentCurrency={this.props.currentCurrency} />
+            return <CartProduct isOverlay={true} key={index} product={product} currentCurrency={this.props.currentCurrency} />
         })
      
         return (

@@ -17,12 +17,14 @@ class Product extends Component {
         id: this.props.productId,
         prices: this.props.prices,
         attributes: this.props.attributes,
-        selectedAttributes
+        selectedAttributes,
+        gallery: this.props.gallery
 
       })
   }
 
   render() {
+    console.log(this.props.gallery[0])
     const price = this.props.prices.find(price => price.currency.label === this.props.currentCurrency.label)
     const selectedAttributes = this.props.attributes.map(attribute => ({ attributeId: attribute.id, itemId: attribute.items[0].id }));
 
