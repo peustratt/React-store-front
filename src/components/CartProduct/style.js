@@ -3,7 +3,7 @@ import styled from 'styled-components';
 const Div = styled.div`
   display: flex;
   width: 100%;
-  gap: .5em;
+  gap: .3em;
 
   .main-content {
     display: flex;
@@ -13,9 +13,14 @@ const Div = styled.div`
     .header {
       padding-top: 2px;
       font-size: 16px;
-      font-family: 'Raleway';
-      font-weight: light;
+      font-family: 'Raleway', sans-serif;
+      font-weight: 300;
       line-height: 1.6;
+
+      .item-price {
+        font-weight: 500;
+        font-size: 16px;
+      }
     }
   }
 

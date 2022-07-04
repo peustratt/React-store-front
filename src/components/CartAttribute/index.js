@@ -25,7 +25,7 @@ class Attribute extends Component {
             </ValueContainer>);
 
         return (
-            <AttributesContainer type={this.props.attribute?.type}>
+            <AttributesContainer isOverlay={this.props.isOverlay} type={this.props.attribute?.type}>
                 <p className="attribute-title">{this.props.attribute.name}:</p>
                 <div className="attribute-values">{El}</div>
             </AttributesContainer>

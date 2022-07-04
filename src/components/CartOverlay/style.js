@@ -19,6 +19,14 @@ const Div = styled.div`
         display: flex;
         justify-content: space-between;
         width: 100%;
+        font-family: 'Raleway', 'sans-serif';
+        font-weight: 500;
+        font-size: 16px;
+
+        .price {
+            font-weight: 700;
+        }
+
     }
 
     .overlay-btns {

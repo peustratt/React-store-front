@@ -24,7 +24,7 @@ class CartProduct extends Component {
           <div className="header">
             <div>{product.brand}</div>
             <span>{product.name}</span>
-            <div>{price.currency.symbol}{price.amount}</div>
+            <div className="item-price">{price.currency.symbol}{price.amount}</div>
 
           </div>
           {attributesEl}

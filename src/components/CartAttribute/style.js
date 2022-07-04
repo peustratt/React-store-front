@@ -6,8 +6,9 @@ const AttributesContainer = styled.div`
     color: black;
     .attribute-title {
         font-family: 'Roboto Condensed', sans-serif;
-        font-weight: 800;
-        text-transform: uppercase;
+        font-weight: ${props => props.isOverlay ? '400' : '600'};
+        font-size: ${props => props.isOverlay ? '14px' : ''};
+        text-transform: ${props => props.isOverlay ? 'capitalize' : 'uppercase'};
     }
     .attribute-values {
         font-size: 18px;
