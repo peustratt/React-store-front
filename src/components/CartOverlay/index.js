@@ -1,7 +1,7 @@
 import { Component } from "react";
 import { connect } from 'react-redux';
 
-import Div from './style';
+import OverlayContainer from './style';
 import CartProduct from '../CartProduct'
 
 class CartOverlay extends Component {
@@ -11,10 +11,14 @@ class CartOverlay extends Component {
         })
      
         return (
-            <Div>
+            <OverlayContainer>
                 {productsEL}
-                <div>total: {this.props.currentCurrency.symbol}{this.props.cart.total}</div>
-            </Div>
+                <div className="cart-total"><span>Total</span><span>{this.props.currentCurrency.symbol}{this.props.cart.total}</span></div>
+                <div className="overlay-btns">
+                    <button className="view-bag-btn">View bag</button>
+                    <button className="checkout-btn">Checkout</button>
+                </div>
+            </OverlayContainer>
         )
     }
 }
