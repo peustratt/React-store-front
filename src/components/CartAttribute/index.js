@@ -10,7 +10,7 @@ class Attribute extends Component {
         // console.log('currentItem', itemId)
 
         const El = this.props.attribute.items.map(item =>
-            <ValueContainer isSelected={itemId === item.id}
+            <ValueContainer isOverlay={this.props.isOverlay} isSelected={itemId === item.id}
                 onClick={() => this.props.editProduct({
                     productId: this.props.productId,
                     attributeId: this.props.attribute.id,
@@ -25,7 +25,7 @@ class Attribute extends Component {
             </ValueContainer>);
 
         return (
-            <AttributesContainer type={this.props.attribute?.type}>
+            <AttributesContainer isOverlay={this.props.isOverlay} type={this.props.attribute?.type}>
                 <p className="attribute-title">{this.props.attribute.name}:</p>
                 <div className="attribute-values">{El}</div>
             </AttributesContainer>

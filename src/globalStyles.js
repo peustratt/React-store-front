@@ -8,6 +8,9 @@ const GlobalStyle = createGlobalStyle`
         padding: 0;
         box-sizing: border-box;
     }
+    body {
+        overflow: ${props => props.isOverlay ? 'hidden' : ''};
+    }
 `
 
 export default GlobalStyle;

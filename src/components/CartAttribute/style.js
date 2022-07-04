@@ -1,14 +1,14 @@
 import styled from 'styled-components'
 
 const AttributesContainer = styled.div`
-    display: flex;
-    flex-direction: column;
+    display: grid;
     gap: .4em;
     color: black;
     .attribute-title {
         font-family: 'Roboto Condensed', sans-serif;
-        font-weight: 800;
-        text-transform: uppercase;
+        font-weight: ${props => props.isOverlay ? '400' : '600'};
+        font-size: ${props => props.isOverlay ? '14px' : ''};
+        text-transform: ${props => props.isOverlay ? 'capitalize' : 'uppercase'};
     }
     .attribute-values {
         font-size: 18px;
@@ -20,24 +20,25 @@ const AttributesContainer = styled.div`
     }
 `
 const ValueContainer = styled.div`
-
+        padding: 0 15px;
         display: flex;
         justify-content: center;
         align-items: center;
-        width: 63px;
-        height: 45px;
+        width: ${props => props.isOverlay ? '24px' : '63px'};
+        height: ${props => props.isOverlay ? '24px' : '45px'};
         border: 1px solid #1D1F22;
         outline-offset: 1px;
         background: ${props => props.type === 'text' ? '#fff' : props.value};
         filter: ${props => props.type === 'text' && props.isSelected ? 'invert(100%)' : 'invert(0%)'};
         color: #1D1F22;
-        font-size: 16px;
+        font-size: ${props => props.isOverlay ? '12px' : '16px'};
         font-weight: 600;
         
 
         &.swatch {
-            width: 32px;
-            height: 32px;
+            padding: 0;
+            width: ${props => props.isOverlay ? '16px' : '32px'};
+            height: ${props => props.isOverlay ? '16px' : '32px'};
             outline: 2px solid ${props => props.isSelected ? '#5ECE7B' : 'transparent'};
         }
 `

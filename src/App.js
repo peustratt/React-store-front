@@ -8,7 +8,7 @@ import { createStore } from 'redux';
 import allReducers from './reducers';
 import { BrowserRouter, Routes, Route, Link } from 'react-router-dom'
 
-
+import { changeCurrentCurrency } from './actions/cartActions';
 import Home from './components/Home';
 import Navbar from './components/Navbar'
 import GlobalStyle from './globalStyles';
@@ -26,11 +26,27 @@ class App extends Component {
         category: "",
         products: [],
         currencies: [],
-        currentCurrency: {}
+        currentCurrency: {},
+        isOverlay: false
+    }
+
+    handleOverlay = (action) => {
+        console.log(action)
+        switch(action) {
+            case 'open':
+                this.setState({isOverlay: true})
+                break;
+            case 'close':
+                this.setState({isOverlay: false})
+                break;
+            default:
+                console.log('Invalid action argument for handleOverlay(action)')
+        }
     }
 
     handleCurrency = ({ target }) => {
         const [symbol, label] = target.innerText.split(' ');
+        store.dispatch(changeCurrentCurrency({ symbol, label }))
         this.setState({ currentCurrency: { symbol, label } })
     }
 
@@ -54,10 +70,13 @@ class App extends Component {
 
         client.query({
             query: gql`${CURRENCIES_QUERY}`
-        }).then(res => this.setState({
-            currencies: res.data.currencies,
-            currentCurrency: res.data.currencies[0]
-        }));
+        }).then(res => {
+            store.dispatch(changeCurrentCurrency(res.data.currencies[0]))
+            this.setState({
+                currencies: res.data.currencies,
+                currentCurrency: res.data.currencies[0]
+            })
+        });
 
         client.query({
             query: gql`${CATEGORY_QUERY}`
@@ -78,8 +97,8 @@ class App extends Component {
     render() {
         return (
             <Provider store={store}>
-                <GlobalStyle />
-                <div className="App">
+                <GlobalStyle isOverlay={this.state.isOverlay} />
+                <AppContainer className="App">
                     <Navbar
                         categories={this.state.categories}
                         handleCategory={this.handleCategory}
@@ -87,16 +106,33 @@ class App extends Component {
                         currencies={this.state.currencies}
                         currentCurrency={this.state.currentCurrency}
                         handleCurrency={this.handleCurrency}
+                        isOverlay={this.state.isOverlay}
+                        handleOverlay={this.handleOverlay}
                     />
-                    <CartOverlay currentCurrency={this.state.currentCurrency} />
+                    {this.state.isOverlay &&
+                        <>
+                            <CartOverlay currentCurrency={this.state.currentCurrency} />
+                            <div className='overlay-modal' onClick={() => this.handleOverlay('close')}></div>
+                        </>
+                    }
                     <BrowserRouter>
-                        <Route path="/products/:productId" render={ (props) => <ProductDescription {...props} currentCurrency={this.state.currentCurrency} /> }/>
-                        <Route exact path="/" render={(props) => <Home {...props} category={this.state.category} products={this.state.products} currentCurrency={this.state.currentCurrency} /> } />
+                        <Route path="/products/:productId" render={(props) => <ProductDescription {...props} currentCurrency={this.state.currentCurrency} />} />
+                        <Route exact path="/" render={(props) => <Home {...props} category={this.state.category} products={this.state.products} currentCurrency={this.state.currentCurrency} />} />
                     </BrowserRouter>
-                </div>
+                </AppContainer>
             </Provider>
         );
     }
 }
 
 export default App;
+
+const AppContainer = styled.div`
+    .overlay-modal {
+        position: fixed;
+        z-index: 1;
+        background: #393748;
+        opacity: .22;
+        inset: 0;
+    }
+`
