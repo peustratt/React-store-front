@@ -38,6 +38,9 @@ const Div = styled.div`
         gap: 1em;
 
         button {
+            font-size: 14px;
+            font-family: 'Raleway', 'sans-serif';
+            font-weight: 600;
             border: 0;
             background: none;
             width: 100%;
