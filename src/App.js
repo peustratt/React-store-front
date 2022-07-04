@@ -26,7 +26,22 @@ class App extends Component {
         category: "",
         products: [],
         currencies: [],
-        currentCurrency: {}
+        currentCurrency: {},
+        isOverlay: false
+    }
+
+    handleOverlay = (action) => {
+        console.log(action)
+        switch(action) {
+            case 'open':
+                this.setState({isOverlay: true})
+                break;
+            case 'close':
+                this.setState({isOverlay: false})
+                break;
+            default:
+                console.log('Invalid action argument for handleOverlay(action)')
+        }
     }
 
     handleCurrency = ({ target }) => {
@@ -82,7 +97,7 @@ class App extends Component {
     render() {
         return (
             <Provider store={store}>
-                <GlobalStyle />
+                <GlobalStyle isOverlay={this.state.isOverlay} />
                 <AppContainer className="App">
                     <Navbar
                         categories={this.state.categories}
@@ -91,8 +106,15 @@ class App extends Component {
                         currencies={this.state.currencies}
                         currentCurrency={this.state.currentCurrency}
                         handleCurrency={this.handleCurrency}
+                        isOverlay={this.state.isOverlay}
+                        handleOverlay={this.handleOverlay}
                     />
-                    <CartOverlay currentCurrency={this.state.currentCurrency} />
+                    {this.state.isOverlay &&
+                        <>
+                            <CartOverlay currentCurrency={this.state.currentCurrency} />
+                            <div className='overlay-modal' onClick={() => this.handleOverlay('close')}></div>
+                        </>
+                    }
                     <BrowserRouter>
                         <Route path="/products/:productId" render={(props) => <ProductDescription {...props} currentCurrency={this.state.currentCurrency} />} />
                         <Route exact path="/" render={(props) => <Home {...props} category={this.state.category} products={this.state.products} currentCurrency={this.state.currentCurrency} />} />
@@ -106,5 +128,11 @@ class App extends Component {
 export default App;
 
 const AppContainer = styled.div`
-    display: relative;
+    .overlay-modal {
+        position: fixed;
+        z-index: 1;
+        background: #393748;
+        opacity: .22;
+        inset: 0;
+    }
 `

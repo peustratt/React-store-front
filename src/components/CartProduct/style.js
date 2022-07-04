@@ -4,7 +4,6 @@ const Div = styled.div`
   display: flex;
   width: 100%;
   gap: .5em;
-  padding: 2rem 1rem;
 
   .main-content {
     display: flex;

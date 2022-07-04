@@ -1,8 +1,9 @@
 import styled from 'styled-components';
 
 const Navbar = styled.nav`
+    background: #fff;
     position: relative;
-    z-index: 30;
+    z-index: 2;
     display: flex;
     align-items: center;
     padding: 0 100px;
@@ -146,6 +147,7 @@ const Navbar = styled.nav`
             }
         }
         .dropdown {
+            background: #fff;
             position: absolute;
             width: 100%;
             box-shadow: 0px 4px 35px rgba(168, 172, 176, 0.19);

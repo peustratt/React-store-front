@@ -6,12 +6,13 @@ const Div = styled.div`
     align-items: flex-end;
     width: fit-content;
     gap: 40px;
-    outline: black 2px solid;
+    background: #fff;
     position: absolute;
     right: 100px;
     max-height: 80vh;
-    overflow-y: scroll;
-    z-index: 1;
+    overflow-y: auto;
+    z-index: 2;
+    padding: 2rem 1rem;
 `
 
 export default Div;
