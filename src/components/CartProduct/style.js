@@ -75,15 +75,12 @@ const Div = styled.div`
       color: #fff;
       width: 24px;
       height: 24px;
+      font-size: 20px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      font-family: 'Raleway', 'sans-serif';
     }
-
-    .previous {
-    
-    }
-    .next {
-
-    }
-
   }
 `
 

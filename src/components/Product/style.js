@@ -10,12 +10,14 @@ export const ProductContainer = styled.div`
     }
     
     .product-link {
+        color: #1D1F22;
         position: relative;
         z-index: 0;
         text-decoration: none;
         width: 100%;
         height: 100%;
         text-decoration: none;
+        line-height: 1.6;
         &:link {
             color: inherit;
         }
@@ -52,15 +54,21 @@ export const ProductContainer = styled.div`
         }
     
         > h3 {
+            margin-top: 24px;
             font-weight: 300;
             font-family: 'Raleway', sans-serif;
             font-size: 18px;
         }
-        @keyframes become-opaque {
-            0%   {opacity: 0;}
-            100% {opacity: 1;}
+        >span {
+            font-family: 'Raleway', sans-serif;
+            font-weight: 500;
         }
+        
+    }
 
+    @keyframes become-opaque {
+        0%   {opacity: 0;}
+        100% {opacity: 1;}
     }
     button {
         width: 50px;
