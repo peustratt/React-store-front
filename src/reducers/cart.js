@@ -44,7 +44,7 @@ const cartReducer = (state = { products: [], total: 0, currentCurrency: {} }, ac
 
     case 'EDIT_PRODUCT':
       // find old product
-      let oldProduct = state.products.find(product => product.id === action.payload.productId && product.selectedAttributes === action.payload.selectedAttributes)
+      let oldProduct = state.products.find(product => product.id === action.payload.productId && JSON.stringify(product.selectedAttributes) === JSON.stringify(action.payload.selectedAttributes))
       // get edited attributes array
       let newSelected = oldProduct.selectedAttributes.map(attribute => {
         return attribute.attributeId === action.payload.attributeId ? { ...attribute, itemId: action.payload.newItemId } : attribute
@@ -52,6 +52,7 @@ const cartReducer = (state = { products: [], total: 0, currentCurrency: {} }, ac
 
 
       duplicated = state.products.find(product => product.id === action.payload.productId && JSON.stringify(product.selectedAttributes) === JSON.stringify(newSelected))
+      console.log('duplicate', duplicated)
       if (duplicated) {
         const newState = [...state.products];
         let duplicatedId = newState.indexOf(duplicated);

@@ -2,8 +2,10 @@ import { Component } from "react";
 import { client } from '../../config/client-graphql';
 import { gql } from '@apollo/client';
 import ProductContainer from './style';
+import { connect } from 'react-redux';
 
 import { PRODUCT_QUERY } from '../../config/queries';
+import { addProduct } from '../../actions/cartActions'
 import Attribute from "../Attribute";
 
 
@@ -14,6 +16,21 @@ class ProductDescription extends Component {
             attributes: []
         },
         selectedAttributes: []
+    }
+
+    handleAddProduct = () => {
+        const product = this.state.product
+        this.props.addProduct(
+            {
+                name: product.name,
+                brand: product.brand,
+                id: product.id,
+                prices: product.prices,
+                attributes: product.attributes,
+                selectedAttributes: this.state.selectedAttributes,
+                gallery: product.gallery
+
+            })
     }
 
     componentDidMount() {
@@ -33,7 +50,7 @@ class ProductDescription extends Component {
     }
 
     handleSelectAttr = (attributeId, itemId) => {
-        this.setState(prevState => ({selectedAttributes: prevState.selectedAttributes.map(attribute => attribute.attributeId === attributeId ? { ...attribute, itemId: itemId } : attribute)}))
+        this.setState(prevState => ({ selectedAttributes: prevState.selectedAttributes.map(attribute => attribute.attributeId === attributeId ? { ...attribute, itemId: itemId } : attribute) }))
     }
 
     render() {
@@ -72,7 +89,7 @@ class ProductDescription extends Component {
                         <span className="price-title">Price:</span>
                         <span className="price-value">{price?.currency.symbol}{price?.amount}</span>
                     </div>
-                    <button>Add to cart</button>
+                    <button onClick={this.handleAddProduct}>Add to cart</button>
                     <p>description</p>
                 </div>
             </ProductContainer>
@@ -81,4 +98,4 @@ class ProductDescription extends Component {
     }
 }
 
-export default ProductDescription;
+export default connect(null, { addProduct })(ProductDescription);

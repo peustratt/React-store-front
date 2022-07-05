@@ -62,7 +62,7 @@ class App extends Component {
                 categoryInput: this.state.category
             }
         }).then(res => this.setState({ products: res.data.category.products }))
-        // console.log('loaded new products')
+        console.log('loaded new products')
     }
 
     componentDidMount() {
@@ -92,6 +92,7 @@ class App extends Component {
             // console.log('categoria mudou')
             this.onCategoryChange()
         }
+        console.log(this.state.products)
     }
 
     render() {
