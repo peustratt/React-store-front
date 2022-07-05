@@ -34,7 +34,7 @@ const Div = styled.div`
     justify-content: space-between;
     align-items: center;
 
-    button {
+    >button {
       display: flex;
       align-items: center;
       justify-content: center;
@@ -50,6 +50,7 @@ const Div = styled.div`
   }
   
   .img-wrapper {
+    position: relative;
     width: ${props => props.isOverlay ? '121px' : '200px'};
     height: ${props => props.isOverlay ? '190px' : '288px'};
 
@@ -58,6 +59,31 @@ const Div = styled.div`
       width: 100%;
       height: 100%;
     }
+
+    >.next-previous-wrapper {
+      display: flex;
+      gap: 8px;
+      position: absolute;
+      bottom: 1em;
+      right: 1em;
+    }
+
+    button {
+      border: 0;
+      background: #000000;
+      opacity: .77;
+      color: #fff;
+      width: 24px;
+      height: 24px;
+    }
+
+    .previous {
+    
+    }
+    .next {
+
+    }
+
   }
 `
 

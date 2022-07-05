@@ -6,8 +6,34 @@ import { connect } from 'react-redux';
 import { changeProductQuantity } from '../../actions/cartActions'
 
 class CartProduct extends Component {
+  state = {
+    selectedImage: this.props.product.gallery[0]
+  }
 
-  // send attributeId and itemId to cart reducer to handle selectedAttributes
+  handleSelectedImage = (action) => {
+    const selectedIndex = this.props.product.gallery.indexOf(this.state.selectedImage)
+    const size = this.props.product.gallery.length
+
+    switch(action) {
+      case 'next':
+        if (selectedIndex + 1 < size) {
+          this.setState({selectedImage: this.props.product.gallery[selectedIndex+1]})
+        } else {
+          this.setState({selectedImage: this.props.product.gallery[0]})
+        }
+        break;
+
+      case 'previous':
+        if (selectedIndex - 1 >= 0) {
+          this.setState({selectedImage: this.props.product.gallery[selectedIndex-1]})
+        } else {
+          this.setState({selectedImage: this.props.product.gallery[size-1]})
+        }
+        break;
+        default:
+          console.log('Invalid action argument for handleSelectedImage')
+    }
+  }
 
   render() {
     const product = this.props.product;
@@ -35,7 +61,11 @@ class CartProduct extends Component {
           <button className="decrement-product" onClick={() => this.props.changeProductQuantity(product, 'decrement')}>-</button>
         </div>
         <div className="img-wrapper">
-          <img src={product.gallery[0]} alt=""></img>
+          <img src={this.state.selectedImage} alt=""></img>
+          {!this.props.isOverlay && <div className="next-previous-wrapper">
+            <button className="next" onClick={() => this.handleSelectedImage('next')}>&lt;</button>
+            <button className="previous" onClick={() => this.handleSelectedImage('previous')}>&gt;</button>
+          </div>}
         </div>
 
       </Div>
