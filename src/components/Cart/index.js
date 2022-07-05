@@ -3,10 +3,19 @@ import { Component } from "react";
 import { connect } from 'react-redux';
 
 import CartPage from "./style";
+import CartProduct from "../CartProduct";
 
 class Cart extends Component {
   render() {
-    return <CartPage>Hellor products</CartPage>
+    const productsEL = this.props.cart.products.map((product, index) => {
+      return <CartProduct isOverlay={false} key={index} product={product} currentCurrency={this.props.cart.currentCurrency} />
+    })
+    return <CartPage>
+      <p className="page-title">Cart</p>
+      <div className="products">
+        {productsEL}
+      </div>
+    </CartPage>
   }
 }
 
