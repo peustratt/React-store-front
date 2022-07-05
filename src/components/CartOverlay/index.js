@@ -16,8 +16,8 @@ class CartOverlay extends Component {
                 {productsEL}
                 <div className="cart-total"><span>Total</span><span className="price">{this.props.currentCurrency.symbol}{this.props.cart.total}</span></div>
                 <div className="overlay-btns">
-                    <Link to="/cart" className="view-bag-btn">View bag</Link>
-                    <Link to="/cart" className="checkout-btn">Checkout</Link>
+                    <Link to="/cart" onClick={() => this.props.handleOverlay('close')} className="view-bag-btn">View bag</Link>
+                    <Link to="/cart" onClick={() => this.props.handleOverlay('close')} className="checkout-btn">Checkout</Link>
                 </div>
             </OverlayContainer>
         )

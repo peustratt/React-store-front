@@ -37,7 +37,12 @@ const Div = styled.div`
         height: 43px;
         gap: 1em;
 
-        button {
+        a {
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 0 1em;
             font-size: 14px;
             font-family: 'Raleway', 'sans-serif';
             font-weight: 600;

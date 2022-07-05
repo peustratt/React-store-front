@@ -16,4 +16,4 @@ const mapStateToProps = (state) => {
   }
 }
 
-export default connect(null, isNonNullType)(Cart);
+export default connect(mapStateToProps, null)(Cart);

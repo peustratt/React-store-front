@@ -113,7 +113,7 @@ class App extends Component {
                     <BrowserRouter>
                         {this.state.isOverlay &&
                             <>
-                                <CartOverlay currentCurrency={this.state.currentCurrency} />
+                                <CartOverlay handleOverlay={this.handleOverlay} currentCurrency={this.state.currentCurrency} />
                                 <div className='overlay-modal' onClick={() => this.handleOverlay('close')}></div>
                             </>
                         }
