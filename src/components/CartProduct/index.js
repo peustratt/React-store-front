@@ -19,12 +19,12 @@ class CartProduct extends Component {
     })
 
     return (
-      <Div>
+      <Div isOverlay={this.props.isOverlay}>
         <div className="main-content">
           <div className="header">
-            <div>{product.brand}</div>
+            <div className="brand">{product.brand}</div>
             <span>{product.name}</span>
-            <div className="item-price">{price.currency.symbol}{price.amount}</div>
+            {this.props.isOverlay && <div className="item-price">{price.currency.symbol}{price.amount}</div>}
 
           </div>
           {attributesEl}

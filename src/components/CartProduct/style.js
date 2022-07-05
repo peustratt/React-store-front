@@ -12,10 +12,14 @@ const Div = styled.div`
     margin-right: auto;
     .header {
       padding-top: 2px;
-      font-size: 16px;
+      font-size: ${props => props.isOverlay ? '16px' : '30px'};
       font-family: 'Raleway', sans-serif;
       font-weight: 300;
       line-height: 1.6;
+
+      >.brand {
+        font-weight: 600;
+      }
 
       .item-price {
         font-weight: 500;
@@ -31,17 +35,23 @@ const Div = styled.div`
     align-items: center;
 
     button {
-      width: 24px;
-      height: 24px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-family: 'Raleway', sans-serif;
+      font-weight: 400;
+      font-size: ${props => props.isOverlay ? '14px' : '28px'};
+      width: ${props => props.isOverlay ? '24px' : '45px'};
+      height: ${props => props.isOverlay ? '24px' : '45px'};
       border: 0;
       background: none;
-      border: 0.15em solid #1D1F22;
+      border: 1px solid #1D1F22;
     }
   }
   
   .img-wrapper {
-    width: 121px;
-    height: 190px;
+    width: ${props => props.isOverlay ? '121px' : '200px'};
+    height: ${props => props.isOverlay ? '190px' : '288px'};
 
     img {
       object-fit: contain;

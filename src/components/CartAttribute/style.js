@@ -21,7 +21,7 @@ const AttributesContainer = styled.div`
 `
 const ValueContainer = styled.div`
         padding: 0 15px;
-        display: flex;
+        display: flex; 
         justify-content: center;
         align-items: center;
         width: ${props => props.isOverlay ? '24px' : '63px'};
