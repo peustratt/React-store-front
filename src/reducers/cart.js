@@ -49,19 +49,22 @@ const cartReducer = (state = { products: [], total: 0, currentCurrency: {} }, ac
       let newSelected = oldProduct.selectedAttributes.map(attribute => {
         return attribute.attributeId === action.payload.attributeId ? { ...attribute, itemId: action.payload.newItemId } : attribute
       })
-
-
-      duplicated = state.products.find(product => product.id === action.payload.productId && JSON.stringify(product.selectedAttributes) === JSON.stringify(newSelected))
-      console.log('duplicate', duplicated)
-      if (duplicated) {
-        const newState = [...state.products];
-        let duplicatedId = newState.indexOf(duplicated);
-        newState[duplicatedId].quantity += oldProduct.quantity;
-        const oldProductIndex = newState.indexOf(oldProduct);
-        newState.splice(oldProductIndex, 1);
-        return { ...state, products: newState };
+      console.log('eai é ou não é', JSON.stringify(action.payload.selectedAttributes) !== JSON.stringify(newSelected))
+      if (JSON.stringify(action.payload.selectedAttributes) !== JSON.stringify(newSelected)) {
+        duplicated = state.products.find(product => product.id === action.payload.productId && JSON.stringify(product.selectedAttributes) === JSON.stringify(newSelected))
+        console.log('duplicate', duplicated)
+        if (duplicated) {
+          const newState = [...state.products];
+          let duplicatedId = newState.indexOf(duplicated);
+          newState[duplicatedId].quantity += oldProduct.quantity;
+          const oldProductIndex = newState.indexOf(oldProduct);
+          newState.splice(oldProductIndex, 1);
+          return { ...state, products: newState };
+        } else {
+          return { ...state, products: state.products.map(product => product === oldProduct ? { ...oldProduct, selectedAttributes: newSelected } : product) }
+        }
       } else {
-        return { ...state, products: state.products.map(product => product === oldProduct ? { ...oldProduct, selectedAttributes: newSelected } : product) }
+        return state
       }
 
     case "CHANGE_PRODUCT_QUANTITY":
@@ -73,7 +76,7 @@ const cartReducer = (state = { products: [], total: 0, currentCurrency: {} }, ac
         const newState = [...state.products];
         const productIndex = newState.indexOf(selectedProduct);
         newState.splice(productIndex, 1);
-        return { ...state, products: newState , total: getCartTotal(state.currentCurrency.label, newState) };
+        return { ...state, products: newState, total: getCartTotal(state.currentCurrency.label, newState) };
       } else {
         const newState = state.products.map(product => product === selectedProduct ? { ...product, quantity: product.quantity + operator } : product)
         return { ...state, total: getCartTotal(state.currentCurrency.label, newState), products: newState }
