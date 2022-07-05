@@ -1,5 +1,6 @@
+import { isNonNullType } from "graphql";
 import { Component } from "react";
-import {connect } from 'react-redux';
+import { connect } from 'react-redux';
 
 import CartPage from "./style";
 
@@ -15,4 +16,4 @@ const mapStateToProps = (state) => {
   }
 }
 
-export default connect(mapStateToProps, null)(Cart)
+export default connect(null, isNonNullType)(Cart);

@@ -14,7 +14,7 @@ import Navbar from './components/Navbar'
 import GlobalStyle from './globalStyles';
 import CartOverlay from './components/CartOverlay';
 import ProductDescription from './components/ProductDescription'
-
+import Cart from './components/Cart'
 let store = createStore(
     allReducers,
     window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__()
@@ -32,12 +32,12 @@ class App extends Component {
 
     handleOverlay = (action) => {
         console.log(action)
-        switch(action) {
+        switch (action) {
             case 'open':
-                this.setState({isOverlay: true})
+                this.setState({ isOverlay: true })
                 break;
             case 'close':
-                this.setState({isOverlay: false})
+                this.setState({ isOverlay: false })
                 break;
             default:
                 console.log('Invalid action argument for handleOverlay(action)')
@@ -110,14 +110,15 @@ class App extends Component {
                         isOverlay={this.state.isOverlay}
                         handleOverlay={this.handleOverlay}
                     />
-                    {this.state.isOverlay &&
-                        <>
-                            <CartOverlay currentCurrency={this.state.currentCurrency} />
-                            <div className='overlay-modal' onClick={() => this.handleOverlay('close')}></div>
-                        </>
-                    }
                     <BrowserRouter>
+                        {this.state.isOverlay &&
+                            <>
+                                <CartOverlay currentCurrency={this.state.currentCurrency} />
+                                <div className='overlay-modal' onClick={() => this.handleOverlay('close')}></div>
+                            </>
+                        }
                         <Route path="/products/:productId" render={(props) => <ProductDescription {...props} currentCurrency={this.state.currentCurrency} />} />
+                        <Route path="/cart" render={(props) => <Cart {...props} />} />
                         <Route exact path="/" render={(props) => <Home {...props} category={this.state.category} products={this.state.products} currentCurrency={this.state.currentCurrency} />} />
                     </BrowserRouter>
                 </AppContainer>

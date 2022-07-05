@@ -1,5 +1,6 @@
 import { Component } from "react";
 import { connect } from 'react-redux';
+import {Link} from 'react-router-dom'
 
 import OverlayContainer from './style';
 import CartProduct from '../CartProduct'
@@ -15,8 +16,8 @@ class CartOverlay extends Component {
                 {productsEL}
                 <div className="cart-total"><span>Total</span><span className="price">{this.props.currentCurrency.symbol}{this.props.cart.total}</span></div>
                 <div className="overlay-btns">
-                    <button className="view-bag-btn">View bag</button>
-                    <button className="checkout-btn">Checkout</button>
+                    <Link to="/cart" className="view-bag-btn">View bag</Link>
+                    <Link to="/cart" className="checkout-btn">Checkout</Link>
                 </div>
             </OverlayContainer>
         )
