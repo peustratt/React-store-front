@@ -49,7 +49,6 @@ const cartReducer = (state = { products: [], total: 0, currentCurrency: {} }, ac
       localStorage.setItem("cart-scandiweb", JSON.stringify({ products: newProducts, currentCurrency: state.currentCurrency }))
       return {
         ...state,
-        total: state.total + price.amount,
         products: [...state.products, { ...action.payload, quantity: 1 }],
         total: getCartTotal(state.currentCurrency.label, state.products) + price.amount
       }
