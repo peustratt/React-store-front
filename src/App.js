@@ -95,15 +95,14 @@ class App extends Component {
     client.query({
       query: gql`${CATEGORY_QUERY}`
     }).then(res => {
-      // if (!localStorageCart) {
-      //   prevLocalStorage = JSON.parse(localStorage.getItem('cart-scandiweb'))
-      //   localStorage.setItem('cart-scandiweb', JSON.stringify({ ...prevLocalStorage, category: res.data.categories[0].name }))
-      // }
+      if (!localStorageCart) {
+        prevLocalStorage = JSON.parse(localStorage.getItem('cart-scandiweb'))
+        localStorage.setItem('cart-scandiweb', JSON.stringify({ ...prevLocalStorage, category: res.data.categories[0].name }))
+      }
 
       this.setState({
         categories: res.data.categories,
-        category: res.data.categories[0].name
-        // category: localStorageCart ? localStorageCart.category : res.data.categories[0].name
+        category: localStorageCart ? localStorageCart?.category : res.data.categories[0].name
       })
     })
 
