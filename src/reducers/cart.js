@@ -31,6 +31,7 @@ const cartReducer = (state = { products: [], total: 0, currentCurrency: {} }, ac
       }
 
     case 'ADD_TO_CART':
+      if (action.payload)
       duplicated = state.products.find(product => product.id === action.payload.id && JSON.stringify(product.selectedAttributes) === JSON.stringify(action.payload.selectedAttributes))
       price = action.payload.prices.find(price => price.currency.label === state.currentCurrency.label)
 

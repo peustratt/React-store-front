@@ -10,17 +10,19 @@ class Product extends Component {
   }
 
   handleAddProduct = (selectedAttributes) => {
-    this.props.addProduct(
-      {
-        name: this.props.name,
-        brand: this.props.brand,
-        id: this.props.productId,
-        prices: this.props.prices,
-        attributes: this.props.attributes,
-        selectedAttributes,
-        gallery: this.props.gallery
+    if (this.props.inStock) {
+      this.props.addProduct(
+        {
+          name: this.props.name,
+          brand: this.props.brand,
+          id: this.props.productId,
+          prices: this.props.prices,
+          attributes: this.props.attributes,
+          selectedAttributes,
+          gallery: this.props.gallery
 
-      })
+        })
+    }
   }
 
   render() {
@@ -39,9 +41,10 @@ class Product extends Component {
           <h3>{this.props.brand} {this.props.name}</h3>
           <span>{price.currency.symbol}{price.amount}</span>
         </Link>
-        {this.state.loadAddtoCartBtn && <button onClick={() => this.handleAddProduct(selectedAttributes)}>
-          <img src="./Empty-Cart-white.svg" alt=""></img>
-        </button>}
+        {this.state.loadAddtoCartBtn
+          && <button onClick={() => this.handleAddProduct(selectedAttributes)}>
+            <img src="./Empty-Cart-white.svg" alt=""></img>
+          </button>}
 
 
 

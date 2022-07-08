@@ -20,17 +20,19 @@ class ProductDescription extends Component {
 
     handleAddProduct = () => {
         const product = this.state.product
-        this.props.addProduct(
-            {
-                name: product.name,
-                brand: product.brand,
-                id: product.id,
-                prices: product.prices,
-                attributes: product.attributes,
-                selectedAttributes: this.state.selectedAttributes,
-                gallery: product.gallery
-
-            })
+        if (product.inStock){
+            this.props.addProduct(
+                {
+                    name: product.name,
+                    brand: product.brand,
+                    id: product.id,
+                    prices: product.prices,
+                    attributes: product.attributes,
+                    selectedAttributes: this.state.selectedAttributes,
+                    gallery: product.gallery
+    
+                })
+        }
     }
 
     componentDidMount() {
