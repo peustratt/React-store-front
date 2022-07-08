@@ -1,5 +1,8 @@
 # Scandiweb React.js developer test
 
+## Overview
+Minimalistic storefront created with Reactjs, and consuming the junior-react-endpoint
+
 ## ▶️ Inicializing
 - ### **Pre-requirements**
   - **Node.js**;
