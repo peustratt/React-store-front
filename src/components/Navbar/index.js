@@ -4,6 +4,7 @@ import { connect } from 'react-redux';
 import { addProduct } from '../../actions/cartActions';
 import Nav from './style'
 import Currencies from '../Currencies'
+import history from "../../history";
 
 class Navbar extends Component {
     state = {
@@ -20,7 +21,11 @@ class Navbar extends Component {
                 <li key={index}
                     onClick={(event) => {
                         this.props.handleCategory(event)
-                        
+                        if (history.location.pathname !== '/') {
+                            history.push('/');
+                        } else {
+                            console.log('já estou na main')
+                        }
                     }}
                     className={this.props.category === category.name ? 'selected' : ''}>
                     {category.name}

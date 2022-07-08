@@ -102,7 +102,8 @@ class App extends Component {
 
       this.setState({
         categories: res.data.categories,
-        category: localStorageCart ? localStorageCart?.category : res.data.categories[0].name
+        // category: localStorageCart ? localStorageCart?.category : res.data.categories[0].name
+        category: res.data.categories[0].name
       })
     })
 
@@ -119,7 +120,6 @@ class App extends Component {
       <Provider store={store}>
         <GlobalStyle isOverlay={this.state.isOverlay} />
         <AppContainer className="App">
-          <BrowserRouter>
             <Navbar
               categories={this.state.categories}
               handleCategory={this.handleCategory}
@@ -139,7 +139,6 @@ class App extends Component {
             <Route path="/products/:productId" render={(props) => <ProductDescription {...props} currentCurrency={this.state.currentCurrency} />} />
             <Route path="/cart" render={(props) => <Cart {...props} />} />
             <Route exact path="/" render={(props) => <Home {...props} category={this.state.category} products={this.state.products} currentCurrency={this.state.currentCurrency} />} />
-          </BrowserRouter>
         </AppContainer>
       </Provider>
     );
