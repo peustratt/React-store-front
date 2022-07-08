@@ -23,8 +23,6 @@ class Navbar extends Component {
                         this.props.handleCategory(event)
                         if (history.location.pathname !== '/') {
                             history.push('/');
-                        } else {
-                            console.log('já estou na main')
                         }
                     }}
                     className={this.props.category === category.name ? 'selected' : ''}>
@@ -34,7 +32,7 @@ class Navbar extends Component {
             )
         })
 
-        const overlayFunc = this.props.isOverlay ? () => this.props.handleOverlay('close') : () => {}
+        const overlayFunc = this.props.isOverlay ? () => this.props.handleOverlay('close') : () => { }
         return (
             <Nav onClick={overlayFunc}>
                 <ul className="categories">{categoriesEl}</ul>
