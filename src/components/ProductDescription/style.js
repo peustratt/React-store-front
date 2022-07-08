@@ -25,13 +25,27 @@ const ProductContainer = styled.div`
     }
 
     .img-wrapper {
+        position: relative;
         height: 511px;
         width: 610px;
         overflow: hidden;
+        > span {
+                color: ${props => props.theme.colors.lightGray};
+                font-family: 'Raleway', sans-serif;
+                font-size: 36px;
+                text-transform: uppercase;
+                position: absolute;
+                top: 50%;
+                left: 50%;
+                transform: translate(-50%, -50%);
+                width: fit-content;
+            }
+
         img {
             object-fit: contain;
             width: 100%;
             height: 100%;
+            opacity: ${props => !props.inStock ? .5 : 1}
         }
     }
 

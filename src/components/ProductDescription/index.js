@@ -71,11 +71,12 @@ class ProductDescription extends Component {
         })
 
         return (
-            <ProductContainer>
+            <ProductContainer inStock={this.state.inStock}>
                 <div className="gallery">
                     {imgThumbnailsEl}
                 </div>
                 <div className="img-wrapper">
+                    {!this.state.product.inStock && <span>Out of stock</span>}
                     <img src={this.state.selectedImage} alt=""></img>
                 </div>
                 <div className="description">
