@@ -30,7 +30,6 @@ export const changeCurrentCurrency = (currentCurrency) => {
 }
 
 export const loadLocalStorage = (products) => {
-    console.log('loadLocalStorage action called!', products)
     return {
         type: "LOAD_LOCAL_STORAGE_CART",
         payload: products

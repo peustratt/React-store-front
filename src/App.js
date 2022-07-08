@@ -63,7 +63,6 @@ class App extends Component {
         categoryInput: this.state.category
       }
     }).then(res => {
-      console.log('res', res.data)
       this.setState({ products: res.data.category.products })
     })
   }
@@ -77,13 +76,9 @@ class App extends Component {
     client.query({
       query: gql`${CURRENCIES_QUERY}`
     }).then(res => {
-      // newCurrency = res.data.currencies[0];
-      console.log('localstorage cart', localStorageCart)
       newCurrency = localStorageCart ? localStorageCart.currentCurrency : res.data.currencies[0];
-      console.log('new Currency', newCurrency)
 
       if (localStorageCart) {
-        console.log('loadou')
         store.dispatch(loadLocalStorage({ products: localStorageCart.products, currentCurrency: newCurrency }))
       } else {
         store.dispatch(changeCurrentCurrency(newCurrency))
@@ -121,7 +116,6 @@ class App extends Component {
   }
 
   render() {
-    console.log('store state inside render', store.getState())
     return (
       <Provider store={store}>
         <GlobalStyle isOverlay={this.state.isOverlay} />
