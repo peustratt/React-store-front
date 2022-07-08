@@ -56,6 +56,7 @@ class ProductDescription extends Component {
     }
 
     render() {
+        console.log(this.state.product)
         const price = this.state.product.prices?.find(price => price.currency.label === this.props.currentCurrency.label)
 
         const attributesEl = this.state.product.attributes.map((attribute, index) => {
@@ -92,7 +93,7 @@ class ProductDescription extends Component {
                         <span className="price-value">{price?.currency.symbol}{price?.amount}</span>
                     </div>
                     <button onClick={this.handleAddProduct}>Add to cart</button>
-                    <p>description</p>
+                    <div className="product-description" dangerouslySetInnerHTML={{__html: this.state.product.description}}></div>
                 </div>
             </ProductContainer>
 

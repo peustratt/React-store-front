@@ -25,21 +25,22 @@ const ProductContainer = styled.div`
     }
 
     .img-wrapper {
+        flex-shrink: 0;
         position: relative;
         height: 511px;
         width: 610px;
         overflow: hidden;
         > span {
-                color: ${props => props.theme.colors.lightGray};
-                font-family: 'Raleway', sans-serif;
-                font-size: 36px;
-                text-transform: uppercase;
-                position: absolute;
-                top: 50%;
-                left: 50%;
-                transform: translate(-50%, -50%);
-                width: fit-content;
-            }
+            color: ${props => props.theme.colors.lightGray};
+            font-family: 'Raleway', sans-serif;
+            font-size: 36px;
+            text-transform: uppercase;
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: fit-content;
+        }
 
         img {
             object-fit: contain;
@@ -72,34 +73,43 @@ const ProductContainer = styled.div`
             flex-direction: column;
             gap: 1em;
         }
-    }
-    .price {
-        display: grid;
-        gap: .5em;
-        align-items: center;
-        .price-title {
-            font-family: 'Roboto Condensed', sans-serif;
-            font-weight: 800;
+        .price {
+            display: grid;
+            gap: .5em;
+            align-items: center;
+            .price-title {
+                font-family: 'Roboto Condensed', sans-serif;
+                font-weight: 800;
+                text-transform: uppercase;
+            }
+            .price-value {
+                font-size: 24px;
+                font-weight: 800;
+            }
+        }
+    
+        button {
+            color: ${props => props.theme.colors.white};
+            background-color: ${props => props.theme.colors.mainGreen};
+            border: 0;
+            font-family: 'Raleway', sans-serif;
+            font-weight: 600;
+            height: 52px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
             text-transform: uppercase;
+            width: 290px;
         }
-        .price-value {
-            font-size: 24px;
-            font-weight: 800;
-        }
-    }
 
-    button {
-        color: ${props => props.theme.colors.white};
-        background-color: ${props => props.theme.colors.mainGreen};
-        border: 0;
-        font-family: 'Raleway', sans-serif;
-        font-weight: 600;
-        height: 52px;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        text-transform: uppercase;
-        width: 290px;
+        .product-description {
+            font-family: 'Roboto', sans-serif;
+            font-size: 16px;
+            line-height: 1.6;
+            text-align: justify;
+            max-width: 650px;
+            color: ${props => props.theme.colors.mainDark};
+        }
     }
 `
 
