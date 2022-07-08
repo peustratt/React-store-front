@@ -14,7 +14,7 @@ const GlobalStyle = createGlobalStyle`
 `
 const theme = {
     colors: {
-        maindark: '#1D1F22',
+        mainDark: '#1D1F22',
         mainGreen: '#5ECE7B',
         white: '#fff',
         lightGray: '#8D8F9A',

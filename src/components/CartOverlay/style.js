@@ -1,6 +1,7 @@
 import styled from 'styled-components';
 
 const Div = styled.div`
+    font-family: 'Raleway', 'sans-serif';
     display: flex;
     flex-direction: column;
     align-items: flex-end;
@@ -14,12 +15,37 @@ const Div = styled.div`
     overflow-y: auto;
     z-index: 2;
     padding: 2rem 1rem;
+    /* Works on Firefox */
+    
+    scrollbar-width: thin;
+    scrollbar-color: ${props => props.theme.colors.lightGray + ' ' + props.theme.colors.mainDark};
+
+    /* Works on Chrome, Edge, and Safari */
+    &::-webkit-scrollbar {
+        width: 10px;
+    }
+
+    &::-webkit-scrollbar-track {
+        background: #EEE;
+    }
+
+    &::-webkit-scrollbar-thumb {
+        background: #c6c7cc;
+        border-radius: 20px;
+        opacity: .5;
+    }
+
+    .cart-overlay__header {
+        align-self: flex-start;
+        >span {
+            font-weight: 700;
+        }
+    }
 
     .cart-total {
         display: flex;
         justify-content: space-between;
         width: 100%;
-        font-family: 'Raleway', 'sans-serif';
         font-weight: 500;
         font-size: 16px;
 
