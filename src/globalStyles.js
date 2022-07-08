@@ -1,4 +1,4 @@
-import { createGlobalStyle } from "styled-components"
+import { createGlobalStyle, ThemeProvider } from "styled-components"
 
 const GlobalStyle = createGlobalStyle`
     *,
@@ -12,5 +12,14 @@ const GlobalStyle = createGlobalStyle`
         overflow: ${props => props.isOverlay ? 'hidden' : ''};
     }
 `
+const theme = {
+    colors: {
+        maindark: '#1D1F22',
+        mainGreen: '#5ECE7B',
+        white: '#fff',
+        lightGray: '#8D8F9A',
+        modalBg: '#393748'
 
-export default GlobalStyle;
+    }
+}
+export { GlobalStyle, ThemeProvider, theme };

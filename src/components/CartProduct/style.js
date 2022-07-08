@@ -45,10 +45,10 @@ const Div = styled.div`
       height: ${props => props.isOverlay ? '24px' : '45px'};
       border: 0;
       background: none;
-      border: 1px solid #1D1F22;
+      border: 1px solid ${props => props.theme.colors.mainDark};
     }
   }
-  
+
   .img-wrapper {
     position: relative;
     width: ${props => props.isOverlay ? '121px' : '200px'};
@@ -72,7 +72,7 @@ const Div = styled.div`
       border: 0;
       background: #000000;
       opacity: .77;
-      color: #fff;
+      color: ${props => props.theme.colors.white};
       width: 24px;
       height: 24px;
       font-size: 20px;

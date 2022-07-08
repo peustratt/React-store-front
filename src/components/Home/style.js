@@ -11,7 +11,7 @@ const HomeContainer = styled.div`
 
     h2 {
         text-transform: capitalize;
-        color: #1D1F22;
+        color: ${props => props.theme.colors.mainDark};
         font-size: 42px;
         font-family: 'Raleway', sans-serif;
         font-weight: 400;

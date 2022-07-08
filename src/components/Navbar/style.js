@@ -1,7 +1,7 @@
 import styled from 'styled-components';
 
 const Navbar = styled.nav`
-    background: #fff;
+    background: ${props => props.theme.colors.white};
     position: relative;
     z-index: 2;
     display: flex;
@@ -34,7 +34,7 @@ const Navbar = styled.nav`
                 display: none;
                 position: absolute;
                 height: 2px;
-                background: #5ECE7B;
+                background: ${props => props.theme.colors.mainGreen};
                 bottom: 0;
                 width: 100%;
                 /* border-radius: 4px; */
@@ -43,7 +43,7 @@ const Navbar = styled.nav`
         }
 
         > li.selected {
-            color: #5ECE7B;
+            color: ${props => props.theme.colors.mainGreen};
             > span {
                 display: block;
 
@@ -85,7 +85,7 @@ const Navbar = styled.nav`
                     left: 100%;
                     transform: translate(-50%, -50%);
                     border-radius: 50%;
-                    color: #fff;
+                    color: ${props => props.theme.colors.white};
                     display: flex;
                     align-items: center;
                     justify-content: center;
@@ -147,7 +147,7 @@ const Navbar = styled.nav`
             }
         }
         .dropdown {
-            background: #fff;
+            background: ${props => props.theme.colors.white};
             position: absolute;
             width: 100%;
             box-shadow: 0px 4px 35px rgba(168, 172, 176, 0.19);

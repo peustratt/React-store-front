@@ -6,12 +6,12 @@ import styled from 'styled-components';
 import { Provider } from 'react-redux';
 import { createStore } from 'redux';
 import allReducers from './reducers';
-import { BrowserRouter, Routes, Route, Link } from 'react-router-dom'
+import { Route } from 'react-router-dom'
 
 import { changeCurrentCurrency, loadLocalStorage } from './actions/cartActions';
 import Home from './components/Home';
 import Navbar from './components/Navbar'
-import GlobalStyle from './globalStyles';
+import { GlobalStyle, ThemeProvider, theme } from './globalStyles';
 import CartOverlay from './components/CartOverlay';
 import ProductDescription from './components/ProductDescription'
 import Cart from './components/Cart'
@@ -122,7 +122,8 @@ class App extends Component {
     return (
       <Provider store={store}>
         <GlobalStyle isOverlay={this.state.isOverlay} />
-        <AppContainer className="App">
+        <ThemeProvider theme={theme}>
+          <AppContainer className="App">
             <Navbar
               categories={this.state.categories}
               handleCategory={this.handleCategory}
@@ -142,7 +143,8 @@ class App extends Component {
             <Route path="/products/:productId" render={(props) => <ProductDescription {...props} currentCurrency={this.state.currentCurrency} />} />
             <Route path="/cart" render={(props) => <Cart {...props} />} />
             <Route exact path="/" render={(props) => <Home {...props} category={this.state.category} products={this.state.products} currentCurrency={this.state.currentCurrency} />} />
-        </AppContainer>
+          </AppContainer>
+        </ThemeProvider>
       </Provider>
     );
   }
@@ -154,7 +156,7 @@ const AppContainer = styled.div`
     .overlay-modal {
         position: fixed;
         z-index: 1;
-        background: #393748;
+        background: ${props => props.theme.colors.modalBg};
         opacity: .22;
         inset: 0;
     }

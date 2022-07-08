@@ -7,7 +7,7 @@ const Div = styled.div`
     width: fit-content;
     height: fit-content;
     gap: 40px;
-    background: #fff;
+    background: ${props => props.theme.colors.white};
     position: absolute;
     right: 100px;
     max-height: 80%;
@@ -53,13 +53,13 @@ const Div = styled.div`
         }
 
         .view-bag-btn {
-            color: #1D1F22;
-            border: 1px #1D1F22 solid;
+            color: ${props => props.theme.colors.mainDark};
+            border: 1px ${props => props.theme.colors.mainDark} solid;
         }
 
         .checkout-btn {
-            background: #5ECE7B;
-            color: #fff;
+            background: ${props => props.theme.colors.mainGreen};
+            color: ${props => props.theme.colors.white};
         }
     }
 `

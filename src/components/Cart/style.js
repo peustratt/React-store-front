@@ -67,13 +67,14 @@ const CartPage = styled.div`
   .place-order {
     margin-top: 16px;
     border: 0;
-    background: #5ECE7B;
+    background: ${props => props.theme.colors.mainGreen};
     width: 279px;
     height: 43px;
-    color: #fff;
+    color: ${props => props.theme.colors.white};
     font-family: inherit;
     font-size: 14px;
     font-weight: 600;
+    text-transform: uppercase;
   }
 `
 

@@ -1,7 +1,7 @@
 import styled from 'styled-components';
 
 export const ProductContainer = styled.div`
-    color: ${props => !props.inStock ? '#8D8F9A' : '#1D1F22'};
+    color: ${props => !props.inStock ? props.theme.colors.lightGray : props.theme.colors.mainDark};
     padding: 16px;
     transition: 100ms ease-in-out;
     position: relative;
@@ -10,7 +10,7 @@ export const ProductContainer = styled.div`
     }
     
     .product-link {
-        color: #1D1F22;
+        color: ${props => props.theme.colors.mainDark};
         position: relative;
         z-index: 0;
         text-decoration: none;
@@ -30,7 +30,7 @@ export const ProductContainer = styled.div`
         &:active {
             color: inherit;
         }
-    
+
         > .img-wrapper {
             position: relative;
             height: 330px;
@@ -75,10 +75,10 @@ export const ProductContainer = styled.div`
         height: 50px;
         border-radius: 50%;
         padding: .9em;
-        color: #fff;
+        color: ${props => props.theme.colors.white};
         position: absolute;
         /* z-index: 20; */
-        background: #5ECE7B;
+        background: ${props => props.theme.colors.mainGreen};
         right: 2rem;
         top: 346px;
         transform: translateY(-50%);

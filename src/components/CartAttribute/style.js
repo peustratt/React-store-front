@@ -26,11 +26,11 @@ const ValueContainer = styled.div`
         align-items: center;
         width: ${props => props.isOverlay ? '24px' : '63px'};
         height: ${props => props.isOverlay ? '24px' : '45px'};
-        border: 1px solid #1D1F22;
+        border: 1px solid ${props => props.theme.colors.mainDark};
         outline-offset: 1px;
-        background: ${props => props.type === 'text' ? '#fff' : props.value};
+        background: ${props => props.type === 'text' ? props.theme.colors.white : props.value};
         filter: ${props => props.type === 'text' && props.isSelected ? 'invert(100%)' : 'invert(0%)'};
-        color: #1D1F22;
+        color: ${props => props.theme.colors.mainDark};
         font-size: ${props => props.isOverlay ? '12px' : '16px'};
         font-weight: 600;
         
@@ -39,7 +39,7 @@ const ValueContainer = styled.div`
             padding: 0;
             width: ${props => props.isOverlay ? '16px' : '32px'};
             height: ${props => props.isOverlay ? '16px' : '32px'};
-            outline: 2px solid ${props => props.isSelected ? '#5ECE7B' : 'transparent'};
+            outline: 2px solid ${props => props.isSelected ? props.theme.colors.mainGreen : 'transparent'};
         }
 `
 export { AttributesContainer, ValueContainer };

@@ -75,8 +75,8 @@ const ProductContainer = styled.div`
     }
 
     button {
-        color: #fff;
-        background-color: #5ECE7B;
+        color: ${props => props.theme.colors.white};
+        background-color: ${props => props.theme.colors.mainGreen};
         border: 0;
         font-family: 'Raleway', sans-serif;
         font-weight: 600;
