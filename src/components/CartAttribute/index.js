@@ -7,7 +7,6 @@ import { AttributesContainer, ValueContainer } from "./style";
 class Attribute extends Component {
     render() {
         const { itemId } = this.props.selectedAttributes?.find((attribute) => attribute.attributeId === this.props.attribute.id)
-        // console.log('currentItem', itemId)
 
         const El = this.props.attribute.items.map(item =>
             <ValueContainer isOverlay={this.props.isOverlay} isSelected={itemId === item.id}

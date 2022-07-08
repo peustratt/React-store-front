@@ -37,7 +37,6 @@ class CartProduct extends Component {
 
   render() {
     const product = this.props.product;
-    console.log(product)
     const price = product.prices.find(price => price.currency.label === this.props.currentCurrency.label)
 
     const attributesEl = product.attributes.map((attribute, index) => {

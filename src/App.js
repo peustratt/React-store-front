@@ -8,123 +8,149 @@ import { createStore } from 'redux';
 import allReducers from './reducers';
 import { BrowserRouter, Routes, Route, Link } from 'react-router-dom'
 
-import { changeCurrentCurrency } from './actions/cartActions';
+import { changeCurrentCurrency, loadLocalStorage } from './actions/cartActions';
 import Home from './components/Home';
 import Navbar from './components/Navbar'
 import GlobalStyle from './globalStyles';
 import CartOverlay from './components/CartOverlay';
 import ProductDescription from './components/ProductDescription'
 import Cart from './components/Cart'
+
 let store = createStore(
-    allReducers,
-    window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__()
+  allReducers,
+  window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__()
 );
 
 class App extends Component {
-    state = {
-        categories: [],
-        category: "",
-        products: [],
-        currencies: [],
-        currentCurrency: {},
-        isOverlay: false
-    }
+  state = {
+    categories: [],
+    category: "",
+    products: [],
+    currencies: [],
+    currentCurrency: {},
+    isOverlay: false
+  }
 
-    handleOverlay = (action) => {
-        console.log(action)
-        switch (action) {
-            case 'open':
-                this.setState({ isOverlay: true })
-                break;
-            case 'close':
-                this.setState({ isOverlay: false })
-                break;
-            default:
-                console.log('Invalid action argument for handleOverlay(action)')
-        }
+  handleOverlay = (action) => {
+    switch (action) {
+      case 'open':
+        this.setState({ isOverlay: true })
+        break;
+      case 'close':
+        this.setState({ isOverlay: false })
+        break;
+      default:
+        console.log('Invalid action argument for handleOverlay(action)')
     }
+  }
 
-    handleCurrency = ({ target }) => {
-        const [symbol, label] = target.innerText.split(' ');
-        store.dispatch(changeCurrentCurrency({ symbol, label }))
-        this.setState({ currentCurrency: { symbol, label } })
+  handleCurrency = ({ target }) => {
+    const [symbol, label] = target.innerText.split(' ');
+    store.dispatch(changeCurrentCurrency({ symbol, label }))
+    this.setState({ currentCurrency: { symbol, label } })
+  }
+
+  handleCategory = ({ target }) => {
+    this.setState({ category: target.innerText.toLowerCase() })
+    const prevLocalStorage = JSON.parse(localStorage.getItem('cart-scandiweb'))
+    localStorage.setItem('cart-scandiweb', JSON.stringify({ ...prevLocalStorage, category: target.innerText.toLowerCase() }))
+  }
+
+  onCategoryChange = () => {
+    client.query({
+      query: gql`${PRODUCTS_QUERY}`,
+      variables: {
+        categoryInput: this.state.category
+      }
+    }).then(res => {
+      console.log('res', res.data)
+      this.setState({ products: res.data.category.products })
+    })
+  }
+
+  componentDidMount() {
+    let localStorageCart = null
+    let newCurrency = null;
+    let prevLocalStorage
+    localStorageCart = JSON.parse(localStorage.getItem('cart-scandiweb'))
+
+    client.query({
+      query: gql`${CURRENCIES_QUERY}`
+    }).then(res => {
+      // newCurrency = res.data.currencies[0];
+      console.log('localstorage cart', localStorageCart)
+      newCurrency = localStorageCart ? localStorageCart.currentCurrency : res.data.currencies[0];
+      console.log('new Currency', newCurrency)
+
+      if (localStorageCart) {
+        console.log('loadou')
+        store.dispatch(loadLocalStorage({ products: localStorageCart.products, currentCurrency: newCurrency }))
+      } else {
+        store.dispatch(changeCurrentCurrency(newCurrency))
+        prevLocalStorage = JSON.parse(localStorage.getItem('cart-scandiweb'))
+        localStorage.setItem('cart-scandiweb', JSON.stringify({ ...prevLocalStorage, currentCurrency: newCurrency, products: [] }))
+      }
+
+      this.setState({
+        currencies: res.data.currencies,
+        currentCurrency: newCurrency
+      })
+    });
+
+    client.query({
+      query: gql`${CATEGORY_QUERY}`
+    }).then(res => {
+      // if (!localStorageCart) {
+      //   prevLocalStorage = JSON.parse(localStorage.getItem('cart-scandiweb'))
+      //   localStorage.setItem('cart-scandiweb', JSON.stringify({ ...prevLocalStorage, category: res.data.categories[0].name }))
+      // }
+
+      this.setState({
+        categories: res.data.categories,
+        category: res.data.categories[0].name
+        // category: localStorageCart ? localStorageCart.category : res.data.categories[0].name
+      })
+    })
+
+  }
+
+  componentDidUpdate(prevProps, prevState) {
+    if (prevState.category !== this.state.category) {
+      this.onCategoryChange()
     }
+  }
 
-    handleCategory = ({ target }) => {
-        this.setState({ category: target.innerText.toLowerCase() })
-    }
-
-    onCategoryChange = () => {
-        // console.log(this.state)
-        client.query({
-            query: gql`${PRODUCTS_QUERY}`,
-            variables: {
-                categoryInput: this.state.category
+  render() {
+    console.log('store state inside render', store.getState())
+    return (
+      <Provider store={store}>
+        <GlobalStyle isOverlay={this.state.isOverlay} />
+        <AppContainer className="App">
+          <BrowserRouter>
+            <Navbar
+              categories={this.state.categories}
+              handleCategory={this.handleCategory}
+              category={this.state.category}
+              currencies={this.state.currencies}
+              currentCurrency={this.state.currentCurrency}
+              handleCurrency={this.handleCurrency}
+              isOverlay={this.state.isOverlay}
+              handleOverlay={this.handleOverlay}
+            />
+            {this.state.isOverlay &&
+              <>
+                <CartOverlay handleOverlay={this.handleOverlay} currentCurrency={this.state.currentCurrency} />
+                <div className='overlay-modal' onClick={() => this.handleOverlay('close')}></div>
+              </>
             }
-        }).then(res => this.setState({ products: res.data.category.products }))
-        console.log('loaded new products')
-    }
-
-    componentDidMount() {
-        console.log('mounted')
-
-        client.query({
-            query: gql`${CURRENCIES_QUERY}`
-        }).then(res => {
-            store.dispatch(changeCurrentCurrency(res.data.currencies[0]))
-            this.setState({
-                currencies: res.data.currencies,
-                currentCurrency: res.data.currencies[0]
-            })
-        });
-
-        client.query({
-            query: gql`${CATEGORY_QUERY}`
-        }).then(res => this.setState({
-            categories: res.data.categories,
-            category: res.data.categories[0].name
-        }))
-
-    }
-
-    componentDidUpdate(prevProps, prevState) {
-        if (prevState.category !== this.state.category) {
-            // console.log('categoria mudou')
-            this.onCategoryChange()
-        }
-        console.log(this.state.products)
-    }
-
-    render() {
-        return (
-            <Provider store={store}>
-                <GlobalStyle isOverlay={this.state.isOverlay} />
-                <AppContainer className="App">
-                    <Navbar
-                        categories={this.state.categories}
-                        handleCategory={this.handleCategory}
-                        category={this.state.category}
-                        currencies={this.state.currencies}
-                        currentCurrency={this.state.currentCurrency}
-                        handleCurrency={this.handleCurrency}
-                        isOverlay={this.state.isOverlay}
-                        handleOverlay={this.handleOverlay}
-                    />
-                    <BrowserRouter>
-                        {this.state.isOverlay &&
-                            <>
-                                <CartOverlay handleOverlay={this.handleOverlay} currentCurrency={this.state.currentCurrency} />
-                                <div className='overlay-modal' onClick={() => this.handleOverlay('close')}></div>
-                            </>
-                        }
-                        <Route path="/products/:productId" render={(props) => <ProductDescription {...props} currentCurrency={this.state.currentCurrency} />} />
-                        <Route path="/cart" render={(props) => <Cart {...props} />} />
-                        <Route exact path="/" render={(props) => <Home {...props} category={this.state.category} products={this.state.products} currentCurrency={this.state.currentCurrency} />} />
-                    </BrowserRouter>
-                </AppContainer>
-            </Provider>
-        );
-    }
+            <Route path="/products/:productId" render={(props) => <ProductDescription {...props} currentCurrency={this.state.currentCurrency} />} />
+            <Route path="/cart" render={(props) => <Cart {...props} />} />
+            <Route exact path="/" render={(props) => <Home {...props} category={this.state.category} products={this.state.products} currentCurrency={this.state.currentCurrency} />} />
+          </BrowserRouter>
+        </AppContainer>
+      </Provider>
+    );
+  }
 }
 
 export default App;

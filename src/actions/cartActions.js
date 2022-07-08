@@ -13,7 +13,6 @@ export const editProduct = (product) => {
 }
 
 export const changeProductQuantity = (product, operation) => {
-    console.log('chamou heon o quantity')
     return {
         type: "CHANGE_PRODUCT_QUANTITY",
         payload: {
@@ -24,9 +23,16 @@ export const changeProductQuantity = (product, operation) => {
 }
 
 export const changeCurrentCurrency = (currentCurrency) => {
-    console.log('chamou heon o current')
     return  {
         type: "CHANGE_CURRENT_CURRENCY",
         payload: currentCurrency
+    }
+}
+
+export const loadLocalStorage = (products) => {
+    console.log('loadLocalStorage action called!', products)
+    return {
+        type: "LOAD_LOCAL_STORAGE_CART",
+        payload: products
     }
 }

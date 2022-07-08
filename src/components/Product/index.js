@@ -24,7 +24,6 @@ class Product extends Component {
   }
 
   render() {
-    console.log(this.props.gallery[0])
     const price = this.props.prices.find(price => price.currency.label === this.props.currentCurrency.label)
     const selectedAttributes = this.props.attributes.map(attribute => ({ attributeId: attribute.id, itemId: attribute.items[0].id }));
 

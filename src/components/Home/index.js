@@ -22,8 +22,6 @@ class Home extends Component {
             )
         })
 
-        // console.log('home props: ', this.props)
-
         return (
             <HomeContainer>
                 <h2>{this.props.category}</h2>

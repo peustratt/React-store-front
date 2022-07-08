@@ -75,17 +75,17 @@ const ProductContainer = styled.div`
     }
 
     button {
-        width: 290px;
+        color: #fff;
+        background-color: #5ECE7B;
+        border: 0;
         font-family: 'Raleway', sans-serif;
         font-weight: 600;
         height: 52px;
         display: flex;
         justify-content: center;
         align-items: center;
-        color: #fff;
         text-transform: uppercase;
-        background-color: #5ECE7B;
-        border: 0;
+        width: 290px;
     }
 `
 

@@ -18,7 +18,10 @@ class Navbar extends Component {
         const categoriesEl = this.props.categories.map((category, index) => {
             return (
                 <li key={index}
-                    onClick={this.props.handleCategory}
+                    onClick={(event) => {
+                        this.props.handleCategory(event)
+                        
+                    }}
                     className={this.props.category === category.name ? 'selected' : ''}>
                     {category.name}
                     <span className="line"></span>
