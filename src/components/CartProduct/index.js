@@ -14,24 +14,24 @@ class CartProduct extends Component {
     const selectedIndex = this.props.product.gallery.indexOf(this.state.selectedImage)
     const size = this.props.product.gallery.length
 
-    switch(action) {
+    switch (action) {
       case 'next':
         if (selectedIndex + 1 < size) {
-          this.setState({selectedImage: this.props.product.gallery[selectedIndex+1]})
+          this.setState({ selectedImage: this.props.product.gallery[selectedIndex + 1] })
         } else {
-          this.setState({selectedImage: this.props.product.gallery[0]})
+          this.setState({ selectedImage: this.props.product.gallery[0] })
         }
         break;
 
       case 'previous':
         if (selectedIndex - 1 >= 0) {
-          this.setState({selectedImage: this.props.product.gallery[selectedIndex-1]})
+          this.setState({ selectedImage: this.props.product.gallery[selectedIndex - 1] })
         } else {
-          this.setState({selectedImage: this.props.product.gallery[size-1]})
+          this.setState({ selectedImage: this.props.product.gallery[size - 1] })
         }
         break;
-        default:
-          console.log('Invalid action argument for handleSelectedImage')
+      default:
+        console.log('Invalid action argument for handleSelectedImage')
     }
   }
 
@@ -49,8 +49,7 @@ class CartProduct extends Component {
           <div className="header">
             <div className="brand">{product.brand}</div>
             <span>{product.name}</span>
-            {this.props.isOverlay && <div className="item-price">{price.currency.symbol}{price.amount}</div>}
-
+            <div className="item-price">{price.currency.symbol}{price.amount}</div>
           </div>
           {attributesEl}
         </div>
