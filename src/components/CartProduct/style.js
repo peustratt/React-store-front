@@ -46,6 +46,7 @@ const Div = styled.div`
       border: 0;
       background: none;
       border: 1px solid ${props => props.theme.colors.mainDark};
+      cursor: pointer;
     }
     >span {
       font-weight: 500;
@@ -84,6 +85,7 @@ const Div = styled.div`
       justify-content: center;
       align-items: center;
       font-family: 'Raleway', 'sans-serif';
+      cursor: pointer;
     }
   }
 `

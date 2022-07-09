@@ -75,6 +75,12 @@ const CartPage = styled.div`
     font-size: 14px;
     font-weight: 600;
     text-transform: uppercase;
+    cursor: pointer;
+    transition: 80ms ease-out;
+
+    &:active {
+      background: ${props => props.theme.colors.orange};
+    }
   }
 `
 

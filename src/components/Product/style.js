@@ -3,7 +3,7 @@ import styled from 'styled-components';
 export const ProductContainer = styled.div`
     color: ${props => !props.inStock ? props.theme.colors.lightGray : props.theme.colors.mainDark};
     padding: 16px;
-    transition: 100ms ease-in-out;
+    transition: 150ms ease-in-out;
     position: relative;
     &:hover {
         box-shadow: 0px 4px 35px rgba(168, 172, 176, 0.19);
@@ -84,6 +84,24 @@ export const ProductContainer = styled.div`
         transform: translateY(-50%);
         border: 0;
         animation: become-opaque 200ms;
+        overflow: hidden;
+        transition: 80ms ease-in-out;
+        cursor: pointer;
+        transform-origin: center ;
+
+        &:active {
+            /* box-shadow: inset 0 0 .6em #d4d4d4; */
+            opacity: .8;
+            background: ${props => props.theme.colors.orange};
+            img {
+                transform: scale(1.1);
+            }
+        }
+
+        &:hover {
+            transform: scale(1.05) translateY(-50%);
+
+        }
 
         img {
             object-fit: contain;

@@ -18,7 +18,8 @@ const theme = {
         mainGreen: '#5ECE7B',
         white: '#fff',
         lightGray: '#8D8F9A',
-        modalBg: '#393748'
+        modalBg: '#393748',
+        orange: '#FFC300'
 
     }
 }

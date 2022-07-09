@@ -76,16 +76,25 @@ const Div = styled.div`
             background: none;
             width: 100%;
             text-transform: uppercase;
+            transition: 100ms ease-in ease-in-out;
         }
 
         .view-bag-btn {
             color: ${props => props.theme.colors.mainDark};
             border: 1px ${props => props.theme.colors.mainDark} solid;
+            &:active {
+                background:  ${props => props.theme.colors.mainGreen};
+                border:  none;
+                color: ${props => props.theme.colors.white};
+            }
         }
 
         .checkout-btn {
             background: ${props => props.theme.colors.mainGreen};
             color: ${props => props.theme.colors.white};
+            &:active {
+                background:  ${props => props.theme.colors.orange};
+            }
         }
     }
 `

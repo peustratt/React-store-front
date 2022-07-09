@@ -29,6 +29,11 @@ const Navbar = styled.nav`
             font-size: inherit;
             text-transform: uppercase;
             transition: 120ms ease-in-out;
+            cursor: pointer;
+
+            &:hover {
+                opacity: .8;
+            }
             
             > span {
                 display: none;
@@ -76,6 +81,11 @@ const Navbar = styled.nav`
                 background: transparent;              
                 border: 0;
                 font-family: inherit;
+                cursor: pointer;
+
+                &:hover {
+                    opacity: .8;
+                }
 
                 >.cart-counter {
                     position: absolute;
