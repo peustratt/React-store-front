@@ -33,6 +33,7 @@ const ValueContainer = styled.div`
         color: ${props => props.theme.colors.mainDark};
         font-size: 16px;
         font-weight: 600;
+        cursor: pointer;
         
 
         &.swatch {
