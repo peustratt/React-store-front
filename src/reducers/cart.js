@@ -86,15 +86,11 @@ const cartReducer = (state = { products: [], total: 0, currentCurrency: {} }, ac
       let selectedProduct = state.products.find((product) => product.id === action.payload.product.id && JSON.stringify(product.selectedAttributes) === JSON.stringify(action.payload.product.selectedAttributes))
       price = selectedProduct.prices.find(price => price.currency.label === state.currentCurrency.label)
 
-      // Remove product from cart
       if (operator < 0 && selectedProduct?.quantity === 1) {
-        const newState = [...state.products];
-        const productIndex = newState.indexOf(selectedProduct);
-        newState.splice(productIndex, 1);
+        const newState = state.products.filter(product => product !== selectedProduct);
         localStorage.setItem('cart-scandiweb', JSON.stringify({ ...prevLocalStorage, products: newState }))
         return { ...state, products: newState, total: getCartTotal(state.currentCurrency.label, newState) };
 
-        // change product quantity
       } else {
         const newState = state.products.map(product => product === selectedProduct ? { ...product, quantity: product.quantity + operator } : product)
         localStorage.setItem('cart-scandiweb', JSON.stringify({ ...prevLocalStorage, products: newState }))
