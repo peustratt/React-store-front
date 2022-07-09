@@ -8,7 +8,7 @@ import CartProduct from '../CartProduct'
 class CartOverlay extends Component {
     render() {
         const productsEL = this.props.cart.products.map((product, index) => {
-            return <CartProduct isOverlay={true} key={index} product={product} currentCurrency={this.props.currentCurrency} />
+            return <CartProduct handleOverlay={this.props.handleOverlay} isOverlay={true} key={index} product={product} currentCurrency={this.props.currentCurrency} />
         })
         const itemCount = this.props.cart.products.reduce((acc, product) => acc + product.quantity, 0)
      

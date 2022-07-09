@@ -8,7 +8,7 @@ import CartProduct from "../CartProduct";
 class Cart extends Component {
   render() {
     const productsEL = this.props.cart.products.map((product, index) => {
-      return <CartProduct isOverlay={false} key={index} product={product} currentCurrency={this.props.cart.currentCurrency} />
+      return <CartProduct handleOverlay={this.props.handleOverlay} isOverlay={false} key={index} product={product} currentCurrency={this.props.cart.currentCurrency} />
     })
     const itemCount = this.props.cart.products.reduce((acc, product) => acc += product.quantity, 0)
     return <CartPage>

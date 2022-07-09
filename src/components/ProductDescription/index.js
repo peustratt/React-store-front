@@ -20,7 +20,7 @@ class ProductDescription extends Component {
 
     handleAddProduct = () => {
         const product = this.state.product
-        if (product.inStock){
+        if (product.inStock) {
             this.props.addProduct(
                 {
                     name: product.name,
@@ -30,12 +30,13 @@ class ProductDescription extends Component {
                     attributes: product.attributes,
                     selectedAttributes: this.state.selectedAttributes,
                     gallery: product.gallery
-    
+
                 })
         }
     }
 
     componentDidMount() {
+        console.log('mounted')
         client.query({
             query: gql`${PRODUCT_QUERY}`,
             variables: {
@@ -49,6 +50,25 @@ class ProductDescription extends Component {
                 selectedAttributes: selectedAttributes
             })
         })
+    }
+
+    componentDidUpdate = (prevProps, prevState) => {
+        if (prevProps.match.params.productId !== this.props.match.params.productId) {
+            console.log('queryed update')
+            client.query({
+                query: gql`${PRODUCT_QUERY}`,
+                variables: {
+                    productId: this.props.match.params.productId
+                }
+            }).then(res => {
+                const selectedAttributes = res.data.product.attributes.map(attribute => ({ attributeId: attribute.id, itemId: attribute.items[0].id }))
+                this.setState({
+                    product: res.data.product,
+                    selectedImage: res.data.product.gallery[0],
+                    selectedAttributes: selectedAttributes
+                })
+            })
+        }
     }
 
     handleSelectAttr = (attributeId, itemId) => {
@@ -92,7 +112,7 @@ class ProductDescription extends Component {
                         <span className="price-value">{price?.currency.symbol}{price?.amount}</span>
                     </div>
                     <button onClick={this.handleAddProduct}>Add to cart</button>
-                    <div className="product-description" dangerouslySetInnerHTML={{__html: this.state.product.description}}></div>
+                    <div className="product-description" dangerouslySetInnerHTML={{ __html: this.state.product.description }}></div>
                 </div>
             </ProductContainer>
 

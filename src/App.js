@@ -140,7 +140,7 @@ class App extends Component {
                 <div className='overlay-modal' onClick={() => this.handleOverlay('close')}></div>
               </>
             }
-            <Route path="/products/:productId" render={(props) => <ProductDescription {...props} currentCurrency={this.state.currentCurrency} />} />
+            <Route path="/products/:productId" render={(props) => <ProductDescription {...props} currentCurrency={this.state.currentCurrency} handleOverlay={this.handleOverlay} />} />
             <Route path="/cart" render={(props) => <Cart {...props} />} />
             <Route exact path="/" render={(props) => <Home {...props} category={this.state.category} products={this.state.products} currentCurrency={this.state.currentCurrency} />} />
           </AppContainer>

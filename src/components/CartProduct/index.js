@@ -4,6 +4,7 @@ import CartAttribute from "../CartAttribute";
 import { connect } from 'react-redux';
 
 import { changeProductQuantity } from '../../actions/cartActions'
+import history from "../../history";
 
 class CartProduct extends Component {
   state = {
@@ -58,8 +59,15 @@ class CartProduct extends Component {
           <span>{product.quantity}</span>
           <button className="decrement-product" onClick={() => this.props.changeProductQuantity(product, 'decrement')}>-</button>
         </div>
-        <div className="img-wrapper">
+        <div className="img-wrapper" onClick={() => {
+          if (this.props.isOverlay) {
+            history.push(`/products/${this.props.product.id}`);
+            this.props.handleOverlay('close')
+          }
+        }}>
+
           <img src={this.state.selectedImage} alt=""></img>
+
           {!this.props.isOverlay && <div className="next-previous-wrapper">
             <button className="next" onClick={() => this.handleSelectedImage('next')}>&lt;</button>
             <button className="previous" onClick={() => this.handleSelectedImage('previous')}>&gt;</button>

@@ -58,6 +58,7 @@ const Div = styled.div`
     position: relative;
     width: ${props => props.isOverlay ? '121px' : '200px'};
     height: ${props => props.isOverlay ? '190px' : '288px'};
+    cursor: ${props => props.isOverlay ? 'pointer': 'default'};
 
     img {
       object-fit: contain;
@@ -65,7 +66,7 @@ const Div = styled.div`
       height: 100%;
     }
 
-    >.next-previous-wrapper {
+    .next-previous-wrapper {
       display: flex;
       gap: 8px;
       position: absolute;
