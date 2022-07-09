@@ -5,12 +5,12 @@ export const addProduct = (product) => {
     }
 }
 
-export const editProduct = (product) => {
-    return {
-        type: "EDIT_PRODUCT",
-        payload: product
-    }
-}
+// export const editProduct = (product) => {
+//     return {
+//         type: "EDIT_PRODUCT",
+//         payload: product
+//     }
+// }
 
 export const changeProductQuantity = (product, operation) => {
     return {

@@ -15,11 +15,18 @@ const ProductContainer = styled.div`
             width: 80px;
             height: 80px;
             overflow: hidden;
+            cursor: pointer;
+            transition: 120ms ease;
 
             img {
                 height: 100%;
                 width: 100%;
                 object-fit: cover;
+
+                &:hover {
+                    opacity: .8;
+                    transform: scale(1.05);
+                } 
             }
         }
     }
@@ -100,6 +107,12 @@ const ProductContainer = styled.div`
             align-items: center;
             text-transform: uppercase;
             width: 290px;
+            cursor: pointer;
+            transition: 80ms ease-out;
+
+            &:active {
+                background: ${props => props.theme.colors.orange};
+            }
         }
 
         .product-description {

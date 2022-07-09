@@ -33,8 +33,7 @@ const ValueContainer = styled.div`
         color: ${props => props.theme.colors.mainDark};
         font-size: ${props => props.isOverlay ? '12px' : '16px'};
         font-weight: 600;
-        cursor: pointer;
-        
+        cursor: default;
 
         &.swatch {
             padding: 0;

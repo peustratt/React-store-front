@@ -53,33 +53,33 @@ const cartReducer = (state = { products: [], total: 0, currentCurrency: {} }, ac
         total: getCartTotal(state.currentCurrency.label, state.products) + price.amount
       }
 
-    case 'EDIT_PRODUCT':
+    // case 'EDIT_PRODUCT':
 
-      let oldProduct = state.products.find(product => product.id === action.payload.productId && JSON.stringify(product.selectedAttributes) === JSON.stringify(action.payload.selectedAttributes))
+    //   let oldProduct = state.products.find(product => product.id === action.payload.productId && JSON.stringify(product.selectedAttributes) === JSON.stringify(action.payload.selectedAttributes))
 
-      let newSelectedAttributes = oldProduct.selectedAttributes.map(attribute => {
-        return attribute.attributeId === action.payload.attributeId ? { ...attribute, itemId: action.payload.newItemId } : attribute
-      })
+    //   let newSelectedAttributes = oldProduct.selectedAttributes.map(attribute => {
+    //     return attribute.attributeId === action.payload.attributeId ? { ...attribute, itemId: action.payload.newItemId } : attribute
+    //   })
 
 
-      if (JSON.stringify(action.payload.selectedAttributes) !== JSON.stringify(newSelectedAttributes)) {
-        duplicated = state.products.find(product => product.id === action.payload.productId && JSON.stringify(product.selectedAttributes) === JSON.stringify(newSelectedAttributes))
+    //   if (JSON.stringify(action.payload.selectedAttributes) !== JSON.stringify(newSelectedAttributes)) {
+    //     duplicated = state.products.find(product => product.id === action.payload.productId && JSON.stringify(product.selectedAttributes) === JSON.stringify(newSelectedAttributes))
 
-        if (duplicated) {
-          newProducts = state.products.map(product => product === duplicated ? { ...product, quantity: product.quantity + oldProduct.quantity } : product)
-          const oldProductIndex = newProducts.indexOf(oldProduct);
-          newProducts.splice(oldProductIndex, 1);
-          localStorage.setItem('cart-scandiweb', JSON.stringify({ ...prevLocalStorage, products: newProducts }))
-          return { ...state, products: newProducts };
-        } else {
-          newProducts = state.products.map(product => product === oldProduct ? { ...oldProduct, selectedAttributes: newSelectedAttributes } : product)
-          localStorage.setItem('cart-scandiweb', JSON.stringify({ ...prevLocalStorage, products: newProducts }))
-          return { ...state, products: newProducts }
-        }
+    //     if (duplicated) {
+    //       newProducts = state.products.map(product => product === duplicated ? { ...product, quantity: product.quantity + oldProduct.quantity } : product)
+    //       const oldProductIndex = newProducts.indexOf(oldProduct);
+    //       newProducts.splice(oldProductIndex, 1);
+    //       localStorage.setItem('cart-scandiweb', JSON.stringify({ ...prevLocalStorage, products: newProducts }))
+    //       return { ...state, products: newProducts };
+    //     } else {
+    //       newProducts = state.products.map(product => product === oldProduct ? { ...oldProduct, selectedAttributes: newSelectedAttributes } : product)
+    //       localStorage.setItem('cart-scandiweb', JSON.stringify({ ...prevLocalStorage, products: newProducts }))
+    //       return { ...state, products: newProducts }
+    //     }
 
-      } else {
-        return state
-      }
+    //   } else {
+    //     return state
+    //   }
 
     case "CHANGE_PRODUCT_QUANTITY":
       let operator = action.payload.operation === 'increment' ? 1 : -1;
