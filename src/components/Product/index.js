@@ -39,7 +39,7 @@ class Product extends Component {
           </div>
 
           <h3>{this.props.brand} {this.props.name}</h3>
-          <span>{price.currency.symbol}{price.amount}</span>
+          <span>{price?.currency.symbol}{price?.amount}</span>
         </Link>
         {this.state.loadAddtoCartBtn
           && <button onClick={() => this.handleAddProduct(selectedAttributes)}>

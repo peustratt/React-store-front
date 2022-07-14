@@ -8,6 +8,7 @@ import { createStore } from 'redux';
 import allReducers from './reducers';
 import { Route } from 'react-router-dom'
 
+import history from './history';
 import { changeCurrentCurrency, loadLocalStorage } from './actions/cartActions';
 import Home from './components/Home';
 import Navbar from './components/Navbar'
@@ -24,8 +25,6 @@ let store = createStore(
 class App extends Component {
   state = {
     categories: [],
-    category: "",
-    products: [],
     currencies: [],
     currentCurrency: {},
     isOverlay: false
@@ -51,23 +50,16 @@ class App extends Component {
   }
 
   handleCategory = ({ target }) => {
-    this.setState({ category: target.innerText.toLowerCase() })
+    const category = target.innerText.toLowerCase()
+    this.setState({ category })
     const prevLocalStorage = JSON.parse(localStorage.getItem('cart-scandiweb'))
-    localStorage.setItem('cart-scandiweb', JSON.stringify({ ...prevLocalStorage, category: target.innerText.toLowerCase() }))
-  }
-
-  onCategoryChange = () => {
-    client.query({
-      query: gql`${PRODUCTS_QUERY}`,
-      variables: {
-        categoryInput: this.state.category
-      }
-    }).then(res => {
-      this.setState({ products: res.data.category.products })
-    })
+    localStorage.setItem('cart-scandiweb', JSON.stringify({ ...prevLocalStorage, category }))
+    history.push(`/${category}`);
+    console.log(category)
   }
 
   componentDidMount() {
+    console.log('App mounted')
     let localStorageCart = null
     let newCurrency = null;
     let prevLocalStorage
@@ -112,13 +104,8 @@ class App extends Component {
 
   }
 
-  componentDidUpdate(prevProps, prevState) {
-    if (prevState.category !== this.state.category) {
-      this.onCategoryChange()
-    }
-  }
-
   render() {
+    console.log(this.state.categories)
     return (
       <Provider store={store}>
         <GlobalStyle isOverlay={this.state.isOverlay} />
@@ -142,7 +129,7 @@ class App extends Component {
             }
             <Route path="/products/:productId" render={(props) => <ProductDescription {...props} currentCurrency={this.state.currentCurrency} handleOverlay={this.handleOverlay} />} />
             <Route path="/cart" render={(props) => <Cart {...props} />} />
-            <Route exact path="/" render={(props) => <Home {...props} category={this.state.category} products={this.state.products} currentCurrency={this.state.currentCurrency} />} />
+            <Route exact path="/:category" render={(props) => <Home {...props} currentCurrency={this.state.currentCurrency} />} />
           </AppContainer>
         </ThemeProvider>
       </Provider>
