@@ -55,11 +55,9 @@ class App extends Component {
     const prevLocalStorage = JSON.parse(localStorage.getItem('cart-scandiweb'))
     localStorage.setItem('cart-scandiweb', JSON.stringify({ ...prevLocalStorage, category }))
     history.push(`/${category}`);
-    console.log(category)
   }
 
   componentDidMount() {
-    console.log('App mounted')
     let localStorageCart = null
     let newCurrency = null;
     let prevLocalStorage
@@ -95,7 +93,9 @@ class App extends Component {
       if (localStorageCart?.category) {
         category = localStorageCart.category;
       }
-
+      if (history.location.pathname === '/') {
+        history.replace(category)
+      }
       this.setState({
         categories: res.data.categories,
         category: category
@@ -105,7 +105,6 @@ class App extends Component {
   }
 
   render() {
-    console.log(this.state.categories)
     return (
       <Provider store={store}>
         <GlobalStyle isOverlay={this.state.isOverlay} />

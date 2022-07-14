@@ -12,7 +12,6 @@ class Home extends Component {
     }
 
     onCategoryChange = () => {
-        console.log('onCategoryChange', this.props.match.params.category)
         client.query({
             query: gql`${PRODUCTS_QUERY}`,
             variables: {
@@ -27,9 +26,8 @@ class Home extends Component {
         this.onCategoryChange()
     }
     componentDidUpdate(prevProps, prevState) {
-        if(prevProps.match.params.category !== this.props.match.params.category) {
+        if (prevProps.match.params.category !== this.props.match.params.category) {
             this.onCategoryChange()
-            console.log('updated')
         }
     }
 

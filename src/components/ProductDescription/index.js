@@ -36,7 +36,6 @@ class ProductDescription extends Component {
     }
 
     componentDidMount() {
-        console.log('mounted')
         client.query({
             query: gql`${PRODUCT_QUERY}`,
             variables: {
@@ -54,7 +53,6 @@ class ProductDescription extends Component {
 
     componentDidUpdate = (prevProps, prevState) => {
         if (prevProps.match.params.productId !== this.props.match.params.productId) {
-            console.log('queryed update')
             client.query({
                 query: gql`${PRODUCT_QUERY}`,
                 variables: {
