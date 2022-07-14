@@ -4,7 +4,6 @@ import { connect } from 'react-redux';
 import { addProduct } from '../../actions/cartActions';
 import Nav from './style'
 import Currencies from '../Currencies'
-import history from "../../history";
 
 class Navbar extends Component {
     state = {

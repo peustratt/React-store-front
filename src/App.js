@@ -1,5 +1,5 @@
 import { Component } from 'react';
-import { CATEGORY_QUERY, CURRENCIES_QUERY, PRODUCTS_QUERY } from './config/queries';
+import { CATEGORY_QUERY, CURRENCIES_QUERY, } from './config/queries';
 import { client } from './config/client-graphql';
 import { gql } from '@apollo/client';
 import styled from 'styled-components';
