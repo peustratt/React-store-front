@@ -54,7 +54,7 @@ class App extends Component {
     this.setState({ category })
     const prevLocalStorage = JSON.parse(localStorage.getItem('cart-scandiweb'))
     localStorage.setItem('cart-scandiweb', JSON.stringify({ ...prevLocalStorage, category }))
-    history.push(`/${category}`);
+    history.push(`/categories/${category}`);
   }
 
   componentDidMount() {
@@ -128,7 +128,7 @@ class App extends Component {
             }
             <Route path="/products/:productId" render={(props) => <ProductDescription {...props} currentCurrency={this.state.currentCurrency} handleOverlay={this.handleOverlay} />} />
             <Route path="/cart" render={(props) => <Cart {...props} />} />
-            <Route exact path="/:category" render={(props) => <Home {...props} currentCurrency={this.state.currentCurrency} />} />
+            <Route exact path="/categories/:category" render={(props) => <Home {...props} currentCurrency={this.state.currentCurrency} />} />
           </AppContainer>
         </ThemeProvider>
       </Provider>
