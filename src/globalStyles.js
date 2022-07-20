@@ -21,6 +21,9 @@ const theme = {
         modalBg: '#393748',
         orange: '#FFC300'
 
+    },
+    padding: {
+        default: 'calc(50px)'
     }
 }
 export { GlobalStyle, ThemeProvider, theme };
