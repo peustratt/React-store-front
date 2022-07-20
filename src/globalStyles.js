@@ -22,8 +22,10 @@ const theme = {
         orange: '#FFC300'
 
     },
-    padding: {
-        default: 'calc(50px)'
+    padding: `padding: 0 calc((100vw - 1300px)/2);
+    @media(max-width: 1500px) {
+    padding: 0 100px;
     }
+            `
 }
 export { GlobalStyle, ThemeProvider, theme };

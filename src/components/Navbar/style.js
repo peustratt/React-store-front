@@ -5,9 +5,13 @@ const Navbar = styled.nav`
     position: relative;
     z-index: 2;
     display: flex;
-    gap: 1em;
+    gap: 1.5em;
     align-items: center;
-    padding: 0 100px;
+    /* padding: 0 calc((100vw - 1200px)/2);
+    @media(max-width: 1200px) {
+        padding: 0 100px;
+    } */
+    ${props => props.theme.padding}
     height: 80px;
     font-family: 'Raleway', sans-serif;
     font-weight: 600;

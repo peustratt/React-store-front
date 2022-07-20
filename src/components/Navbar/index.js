@@ -30,7 +30,7 @@ class Navbar extends Component {
         return (
             <Nav onClick={overlayFunc}>
                 <ul className="categories">{categoriesEl}</ul>
-                <img src="a-logo.svg" alt="store icon"/>
+                <img src="/a-logo.svg" alt="store icon"/>
                 <div className="container" ref={this.container}>
                     <div className="btns-wrapper">
                         <button type="button" onClick={this.handleCurrencyDropdown}>{this.props.currentCurrency.symbol}<div className={`hat-wrapper ${this.state.currencyDropdown ? 'is-open' : ''}`}><span className="hat"></span></div></button>

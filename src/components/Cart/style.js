@@ -1,7 +1,8 @@
 import styled from 'styled-components';
 
 const CartPage = styled.div`
-  padding: 0 100px 50px;
+  ${props => props.theme.padding}
+  margin-bottom: 50px;
   font-family: 'Raleway', 'sans-serif';
 
   >.page-title {

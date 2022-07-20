@@ -2,7 +2,8 @@ import styled from 'styled-components';
 
 const ProductContainer = styled.div`
     display: flex;
-    margin: 100px;
+    margin: 100px 0;
+    ${props => props.theme.padding}
     gap: 2em;
     width: fit-content;
 
