@@ -49,7 +49,7 @@ class Home extends Component {
         })
         return (
             <HomeContainer>
-                <h2>{this.props.category}</h2>
+                <h2>{this.props.match.url.split('/')[2]}</h2>
                 <div className="products-container">
                     {productsEl && productsEl.slice(0, 6)}
                 </div>
@@ -58,4 +58,4 @@ class Home extends Component {
     }
 }
 
-export default Home
+export default Home;
