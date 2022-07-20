@@ -43,7 +43,7 @@ class Product extends Component {
         </Link>
         {this.state.loadAddtoCartBtn
           && <button onClick={() => this.handleAddProduct(selectedAttributes)}>
-            <img src="./Empty-Cart-white.svg" alt=""></img>
+            <img src="/Empty-Cart-white.svg" alt=""></img>
           </button>}
 
 
