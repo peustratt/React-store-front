@@ -94,7 +94,7 @@ class App extends Component {
         category = localStorageCart.category;
       }
       if (history.location.pathname === '/') {
-        history.replace(category)
+        history.replace(`/categories/${category}`)
       }
       this.setState({
         categories: res.data.categories,
