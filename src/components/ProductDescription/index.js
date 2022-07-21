@@ -1,9 +1,10 @@
 import { Component } from "react";
-import { client } from '../../config/client-graphql';
 import { gql } from '@apollo/client';
 import ProductContainer from './style';
 import { connect } from 'react-redux';
+import parse from 'html-react-parser'
 
+import { client } from '../../config/client-graphql';
 import { PRODUCT_QUERY } from '../../config/queries';
 import { addProduct } from '../../actions/cartActions'
 import Attribute from "../Attribute";
@@ -110,7 +111,7 @@ class ProductDescription extends Component {
                         <span className="price-value">{price?.currency.symbol}{price?.amount}</span>
                     </div>
                     <button onClick={this.handleAddProduct}>Add to cart</button>
-                    <div className="product-description" dangerouslySetInnerHTML={{ __html: this.state.product.description }}></div>
+                    <div className="product-description">{parse(`${this.state.product.description}`)}</div>
                 </div>
             </ProductContainer>
 
