@@ -8,26 +8,102 @@ const ProductContainer = styled.div`
     width: fit-content;
 
     .gallery {
-        display: flex;
-        flex-direction: column;
-        gap: 1.5em;
-        
-        .gallery__img-wrapper {
-            width: 80px;
-            height: 80px;
-            overflow: hidden;
+        max-height: 511px;
+        position: relative;
+
+        .gallery__wrapper {
+            display: flex;
+            flex-direction: column;
+            gap: 1.5em;
+            scroll-behavior: smooth;
+            overflow-x: hidden;
+            overflow-y: ${props => props.galleryOverflow ? 'auto' : 'hidden'};
+            height: 100%;
+            scrollbar-width: 0;
+    
+            /* Works on Chrome, Edge, and Safari */
+            &::-webkit-scrollbar {
+                display: none;
+            }
+    
+            .gallery__img-wrapper {
+                width: 80px;
+                height: 80px;
+                cursor: pointer;
+                transition: 120ms ease;
+    
+                img {
+                    height: 100%;
+                    width: 100%;
+                    object-fit: cover;
+    
+                    &:hover {
+                        opacity: .8;
+                        transform: scale(1.05);
+                    }
+                }
+            }
+        }
+        .arrow-wrapper {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            position: absolute;
+            left: 50%;
+            transform: translateX(-50%);
+            z-index: 1;
+            width: 50px;
+            height: 50px;
+            backdrop-filter: blur(.3px);
             cursor: pointer;
-            transition: 120ms ease;
 
-            img {
-                height: 100%;
-                width: 100%;
-                object-fit: cover;
+            &:hover {
+                opacity: .8;
+                transform: scale(1.1) translateX(calc(-50% + 2px))
+            }
+            
+            &.up {
+                display: ${props => props.showUpArrow ? 'flex' : 'none'};
+                top: 10px;
+            }
+            &.down {
+                display: ${props => props.showDownArrow ? 'flex' : 'none'};
+                transform: rotateZ(180deg) translateX(50%);
+                bottom: 10px;
+            }
 
-                &:hover {
-                    opacity: .8;
-                    transform: scale(1.05);
-                } 
+        }
+        .arrow {
+            margin-bottom: 10px;
+            width: 6px;
+            height: 6px;
+            background: ${props => props.theme.colors.mainGreen};
+            transform-origin: right;
+            transform: rotate(45deg);
+            transform-origin: center;
+            border-radius: 2px 0 0 0;
+
+
+            &::before {
+                position: absolute;
+                content: "";
+                width: 30px;
+                height: inherit;
+                background: inherit;
+                right: 100%;
+                transform-origin: right;
+                transform: rotate(-90deg) translate(-3px, 3px);
+                border-radius: 2px 0 0 2px;
+            }
+
+            &::after{
+                position: absolute;
+                content: "";
+                width: 30px;
+                height: inherit;
+                background: inherit;
+                left: 100%;
+                border-radius: 0 2px 2px 0;
             }
         }
     }
