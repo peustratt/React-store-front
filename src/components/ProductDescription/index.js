@@ -13,6 +13,7 @@ import Attribute from "../Attribute";
 
 class ProductDescription extends Component {
     state = {
+        showUpArrow: false,
         showDownArrow: true,
         product: {
             attributes: []
@@ -21,20 +22,15 @@ class ProductDescription extends Component {
     }
 
     handleScrollPositionUp = ({ target }) => {
-        if (target.scrollTop > 0) {
-            this.setState({showUpArrow: true})
-        } else {
-            this.setState({showUpArrow: false})
-        }
+        (target.scrollTop > 0)
+            ? this.setState({ showUpArrow: true })
+            : this.setState({ showUpArrow: false })
     }
 
     handleScrollPositionDown = ({ target }) => {
-        if ((target.scrollHeight - target.clientHeight) === target.scrollTop) {
-            this.setState({showDownArrow: false})
-        } else {
-            this.setState({showDownArrow: true})
-        }
-
+        (target.scrollHeight - target.clientHeight) === target.scrollTop
+            ? this.setState({ showDownArrow: false })
+            : this.setState({ showDownArrow: true })
     }
 
     handleScroll = (direction) => {
