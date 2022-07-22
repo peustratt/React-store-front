@@ -3,7 +3,7 @@ import styled from 'styled-components';
 const Navbar = styled.nav`
     background: ${props => props.theme.colors.white};
     position: relative;
-    z-index: 2;
+    z-index: 4;
     display: flex;
     gap: 1.5em;
     align-items: center;

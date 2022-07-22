@@ -11,6 +11,30 @@ const ProductContainer = styled.div`
         max-height: 511px;
         position: relative;
 
+         &::before {
+            display: block;
+            position: absolute;
+            top: 0;
+            left: 0;
+            content: "";
+            width: 100%;
+            height: 50px;
+            background: ${props => props.showUpArrow ? 'linear-gradient(180deg, rgba(255,255,255,1) 0%, rgba(9,9,121,0) 100%)' : 'transparent'};
+            z-index: 1;
+        }
+
+        &::after {
+            display: block;
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            content: "";
+            width: 100%;
+            height: 50px;
+            background: ${props => props.showDownArrow ? 'linear-gradient(180deg, rgba(9,9,121,0) 0%,  rgba(255,255,255,1) 100%)' : 'transparent'};
+            z-index: 1;
+        }
+
         .gallery__wrapper {
             display: flex;
             flex-direction: column;
@@ -27,6 +51,7 @@ const ProductContainer = styled.div`
             }
     
             .gallery__img-wrapper {
+                position: relative;
                 width: 80px;
                 height: 80px;
                 cursor: pointer;
@@ -36,10 +61,11 @@ const ProductContainer = styled.div`
                     height: 100%;
                     width: 100%;
                     object-fit: cover;
+                    transition: 100ms ease-in-out;
     
                     &:hover {
                         opacity: .8;
-                        transform: scale(1.05);
+                        transform: scale(1.03);
                     }
                 }
             }
@@ -51,15 +77,18 @@ const ProductContainer = styled.div`
             position: absolute;
             left: 50%;
             transform: translateX(-50%);
-            z-index: 1;
-            width: 50px;
-            height: 50px;
-            backdrop-filter: blur(.3px);
+            z-index: 2;
+            width: 60px;
+            height: 60px;
+            backdrop-filter: blur(1px);
+            /* background: ${props => props.theme.colors.lightGray}; */
+            background: rgba(255, 255, 255, .4);
+            border-radius: 50%;
             cursor: pointer;
 
             &:hover {
                 opacity: .8;
-                transform: scale(1.1) translateX(calc(-50% + 2px))
+                transform: scale(1.08) translateX(calc(-50% + 1px))
             }
             
             &.up {
@@ -74,10 +103,10 @@ const ProductContainer = styled.div`
 
         }
         .arrow {
-            margin-bottom: 10px;
+            margin-bottom: 30px;
             width: 6px;
             height: 6px;
-            background: ${props => props.theme.colors.mainGreen};
+            background: ${props => props.theme.colors.mainDark};
             transform-origin: right;
             transform: rotate(45deg);
             transform-origin: center;
@@ -114,6 +143,7 @@ const ProductContainer = styled.div`
         height: 511px;
         width: 610px;
         overflow: hidden;
+
         > span {
             color: ${props => props.theme.colors.lightGray};
             font-family: 'Raleway', sans-serif;

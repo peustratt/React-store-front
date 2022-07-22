@@ -141,7 +141,7 @@ export default App;
 const AppContainer = styled.div`
     .overlay-modal {
         position: fixed;
-        z-index: 1;
+        z-index: 3;
         background: ${props => props.theme.colors.modalBg};
         opacity: .22;
         inset: 0;
