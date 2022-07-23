@@ -1,5 +1,5 @@
 import { Component } from 'react';
-import { CATEGORY_QUERY, CURRENCIES_QUERY, PRODUCTS_QUERY } from './config/queries';
+import { CATEGORY_QUERY, CURRENCIES_QUERY, } from './config/queries';
 import { client } from './config/client-graphql';
 import { gql } from '@apollo/client';
 import styled from 'styled-components';
@@ -8,6 +8,7 @@ import { createStore } from 'redux';
 import allReducers from './reducers';
 import { Route } from 'react-router-dom'
 
+import history from './history';
 import { changeCurrentCurrency, loadLocalStorage } from './actions/cartActions';
 import Home from './components/Home';
 import Navbar from './components/Navbar'
@@ -24,8 +25,6 @@ let store = createStore(
 class App extends Component {
   state = {
     categories: [],
-    category: "",
-    products: [],
     currencies: [],
     currentCurrency: {},
     isOverlay: false
@@ -51,20 +50,11 @@ class App extends Component {
   }
 
   handleCategory = ({ target }) => {
-    this.setState({ category: target.innerText.toLowerCase() })
+    const category = target.innerText.toLowerCase()
+    this.setState({ category })
     const prevLocalStorage = JSON.parse(localStorage.getItem('cart-scandiweb'))
-    localStorage.setItem('cart-scandiweb', JSON.stringify({ ...prevLocalStorage, category: target.innerText.toLowerCase() }))
-  }
-
-  onCategoryChange = () => {
-    client.query({
-      query: gql`${PRODUCTS_QUERY}`,
-      variables: {
-        categoryInput: this.state.category
-      }
-    }).then(res => {
-      this.setState({ products: res.data.category.products })
-    })
+    localStorage.setItem('cart-scandiweb', JSON.stringify({ ...prevLocalStorage, category }))
+    history.push(`/categories/${category}`);
   }
 
   componentDidMount() {
@@ -103,19 +93,15 @@ class App extends Component {
       if (localStorageCart?.category) {
         category = localStorageCart.category;
       }
-
+      if (history.location.pathname === '/') {
+        history.replace(`/categories/${category}`)
+      }
       this.setState({
         categories: res.data.categories,
         category: category
       })
     })
 
-  }
-
-  componentDidUpdate(prevProps, prevState) {
-    if (prevState.category !== this.state.category) {
-      this.onCategoryChange()
-    }
   }
 
   render() {
@@ -142,7 +128,7 @@ class App extends Component {
             }
             <Route path="/products/:productId" render={(props) => <ProductDescription {...props} currentCurrency={this.state.currentCurrency} handleOverlay={this.handleOverlay} />} />
             <Route path="/cart" render={(props) => <Cart {...props} />} />
-            <Route exact path="/" render={(props) => <Home {...props} category={this.state.category} products={this.state.products} currentCurrency={this.state.currentCurrency} />} />
+            <Route exact path="/categories/:category" render={(props) => <Home {...props} currentCurrency={this.state.currentCurrency} />} />
           </AppContainer>
         </ThemeProvider>
       </Provider>
@@ -155,7 +141,7 @@ export default App;
 const AppContainer = styled.div`
     .overlay-modal {
         position: fixed;
-        z-index: 1;
+        z-index: 3;
         background: ${props => props.theme.colors.modalBg};
         opacity: .22;
         inset: 0;

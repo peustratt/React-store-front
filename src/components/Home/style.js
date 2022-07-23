@@ -1,11 +1,11 @@
 import styled from 'styled-components';
 
 const HomeContainer = styled.div`
+        ${props => props.theme.padding}
     .products-container {
-        padding: 0 100px;
         display: flex;
         flex-wrap: wrap;
-        gap: 2.5em;
+        gap: 1.7em;
         margin-top: 3em;
     }
 
@@ -16,7 +16,6 @@ const HomeContainer = styled.div`
         font-family: 'Raleway', sans-serif;
         font-weight: 400;
         margin-top: 1.5em;
-        padding-left: 100px;
     }
 `
 export default HomeContainer;

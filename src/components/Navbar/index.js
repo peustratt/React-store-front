@@ -4,7 +4,6 @@ import { connect } from 'react-redux';
 import { addProduct } from '../../actions/cartActions';
 import Nav from './style'
 import Currencies from '../Currencies'
-import history from "../../history";
 
 class Navbar extends Component {
     state = {
@@ -19,12 +18,7 @@ class Navbar extends Component {
         const categoriesEl = this.props.categories.map((category, index) => {
             return (
                 <li key={index}
-                    onClick={(event) => {
-                        this.props.handleCategory(event)
-                        if (history.location.pathname !== '/') {
-                            history.push('/');
-                        }
-                    }}
+                    onClick={(event) => { this.props.handleCategory(event) }}
                     className={this.props.category === category.name ? 'selected' : ''}>
                     {category.name}
                     <span className="line"></span>
@@ -36,6 +30,7 @@ class Navbar extends Component {
         return (
             <Nav onClick={overlayFunc}>
                 <ul className="categories">{categoriesEl}</ul>
+                <img src="/a-logo.svg" alt="store icon"/>
                 <div className="container" ref={this.container}>
                     <div className="btns-wrapper">
                         <button type="button" onClick={this.handleCurrencyDropdown}>{this.props.currentCurrency.symbol}<div className={`hat-wrapper ${this.state.currencyDropdown ? 'is-open' : ''}`}><span className="hat"></span></div></button>

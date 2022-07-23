@@ -1,9 +1,10 @@
 import { Component } from "react";
-import { client } from '../../config/client-graphql';
 import { gql } from '@apollo/client';
 import ProductContainer from './style';
 import { connect } from 'react-redux';
+import parse from 'html-react-parser'
 
+import { client } from '../../config/client-graphql';
 import { PRODUCT_QUERY } from '../../config/queries';
 import { addProduct } from '../../actions/cartActions'
 import Attribute from "../Attribute";
@@ -12,10 +13,29 @@ import Attribute from "../Attribute";
 
 class ProductDescription extends Component {
     state = {
+        showUpArrow: false,
+        showDownArrow: true,
         product: {
             attributes: []
         },
         selectedAttributes: []
+    }
+
+    handleScrollPositionUp = ({ target }) => {
+        (target.scrollTop > 0)
+            ? this.setState({ showUpArrow: true })
+            : this.setState({ showUpArrow: false })
+    }
+
+    handleScrollPositionDown = ({ target }) => {
+        (target.scrollHeight - target.clientHeight) === target.scrollTop
+            ? this.setState({ showDownArrow: false })
+            : this.setState({ showDownArrow: true })
+    }
+
+    handleScroll = (direction) => {
+        const scrollableEl = document.querySelector('.gallery>.gallery__wrapper')
+        scrollableEl.scrollBy(0, (direction === 'down' ? 1 : -1) * 104)
     }
 
     handleAddProduct = () => {
@@ -36,7 +56,10 @@ class ProductDescription extends Component {
     }
 
     componentDidMount() {
-        console.log('mounted')
+        const scrollableEl = document.querySelector('.gallery>.gallery__wrapper')
+        scrollableEl.addEventListener('scroll', this.handleScrollPositionUp)
+        scrollableEl.addEventListener('scroll', this.handleScrollPositionDown)
+
         client.query({
             query: gql`${PRODUCT_QUERY}`,
             variables: {
@@ -54,7 +77,6 @@ class ProductDescription extends Component {
 
     componentDidUpdate = (prevProps, prevState) => {
         if (prevProps.match.params.productId !== this.props.match.params.productId) {
-            console.log('queryed update')
             client.query({
                 query: gql`${PRODUCT_QUERY}`,
                 variables: {
@@ -69,6 +91,12 @@ class ProductDescription extends Component {
                 })
             })
         }
+    }
+
+    componentWillUnmount() {
+        const scrollableEl = document.querySelector('.gallery>.gallery__wrapper')
+        scrollableEl.removeEventListener('scroll', this.handleScrollPositionUp)
+        scrollableEl.removeEventListener('scroll', this.handleScrollPositionDown)
     }
 
     handleSelectAttr = (attributeId, itemId) => {
@@ -91,9 +119,17 @@ class ProductDescription extends Component {
         })
 
         return (
-            <ProductContainer inStock={this.state.product.inStock}>
+            <ProductContainer showUpArrow={this.state.showUpArrow} showDownArrow={this.state.showDownArrow} galleryOverflow={imgThumbnailsEl?.length > 5 ? true : false} inStock={this.state.product.inStock}>
                 <div className="gallery">
-                    {imgThumbnailsEl}
+                    <div className="gallery__wrapper">
+                        {imgThumbnailsEl}
+                    </div>
+                    {imgThumbnailsEl?.length > 5 &&
+                        <>
+                            <div className="arrow-wrapper up" onClick={() => this.handleScroll('up')}><div className="arrow"></div></div>
+                            <div className="arrow-wrapper down" onClick={() => this.handleScroll('down')}><div className="arrow"></div></div>
+                        </>
+                    }
                 </div>
                 <div className="img-wrapper">
                     {!this.state.product.inStock && <span>Out of stock</span>}
@@ -112,7 +148,7 @@ class ProductDescription extends Component {
                         <span className="price-value">{price?.currency.symbol}{price?.amount}</span>
                     </div>
                     <button onClick={this.handleAddProduct}>Add to cart</button>
-                    <div className="product-description" dangerouslySetInnerHTML={{ __html: this.state.product.description }}></div>
+                    <div className="product-description">{parse(`${this.state.product.description}`)}</div>
                 </div>
             </ProductContainer>
 

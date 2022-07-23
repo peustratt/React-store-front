@@ -3,10 +3,15 @@ import styled from 'styled-components';
 const Navbar = styled.nav`
     background: ${props => props.theme.colors.white};
     position: relative;
-    z-index: 2;
+    z-index: 4;
     display: flex;
+    gap: 1.5em;
     align-items: center;
-    padding: 0 100px;
+    /* padding: 0 calc((100vw - 1200px)/2);
+    @media(max-width: 1200px) {
+        padding: 0 100px;
+    } */
+    ${props => props.theme.padding}
     height: 80px;
     font-family: 'Raleway', sans-serif;
     font-weight: 600;
@@ -53,6 +58,18 @@ const Navbar = styled.nav`
                 display: block;
 
             }
+        }
+    }
+
+    >img {
+        margin: 0 auto;
+        width: 41px;
+        height: 41px;
+        @media(min-width: 1200px) {
+            position: absolute;
+            left: 50%;
+            top: 50%;
+            transform: translate(-50%, -50%);
         }
     }
 

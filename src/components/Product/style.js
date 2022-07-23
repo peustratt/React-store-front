@@ -33,8 +33,8 @@ export const ProductContainer = styled.div`
 
         > .img-wrapper {
             position: relative;
-            height: 330px;
-            width: 354px;
+            height: 300px;
+            width: 332px;
             > span {
                 font-family: 'Raleway', sans-serif;
                 font-size: 24px;

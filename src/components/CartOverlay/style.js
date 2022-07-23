@@ -13,7 +13,7 @@ const Div = styled.div`
     right: 100px;
     max-height: 80%;
     overflow-y: auto;
-    z-index: 2;
+    z-index: 4;
     padding: 2rem 1rem;
     /* Works on Firefox */
     
