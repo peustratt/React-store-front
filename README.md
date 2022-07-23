@@ -15,11 +15,11 @@ then, clone the repository
   $ git clone https://github.com/peustratt/pedro-ivo-duarte-scandiweb-react.git
 ```
 
-E then:
+and then:
 
 ```sh
   # enter project folder
-  $ cd chat.io
+  $ cd pedro-ivo-duarte-scandiweb-react
   # install dependencies
   $ yarn or npm install
   # build the app
