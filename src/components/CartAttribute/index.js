@@ -1,7 +1,5 @@
 import { Component } from "react";
-import { connect } from 'react-redux';
 
-// import { editProduct } from '../../actions/cartActions'
 import { AttributesContainer, ValueContainer } from "./style";
 
 class Attribute extends Component {

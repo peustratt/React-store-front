@@ -4,7 +4,7 @@ import { AttributesContainer, ValueContainer } from "./style";
 
 class Attribute extends Component {
     render() {
-        const { attributeId, itemId } = this.props.selectedAttributes?.find((attribute) => attribute.attributeId === this.props.attribute.id)
+        const { itemId } = this.props.selectedAttributes?.find((attribute) => attribute.attributeId === this.props.attribute.id)
         
         const El = this.props.attribute.items.map(item =>
             <ValueContainer isSelected={itemId === item.id}
