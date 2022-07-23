@@ -5,7 +5,7 @@ const HomeContainer = styled.div`
     .products-container {
         display: flex;
         flex-wrap: wrap;
-        gap: 2.5em;
+        gap: 1.7em;
         margin-top: 3em;
     }
 
