@@ -14,14 +14,14 @@ Minimalistic storefront created with Reactjs, and consuming a graphQL endpoint
 then, clone the repository
 
 ```sh
-  $ git clone https://github.com/peustratt/pedro-ivo-duarte-scandiweb-react.git
+  $ git clone https://github.com/peustratt/react-store-front.git
 ```
 
 and then:
 
 ```sh
   # enter project folder
-  $ cd pedro-ivo-duarte-scandiweb-react
+  $ cd react-store-front.git
   # install dependencies
   $ yarn or npm install
   # build the app
