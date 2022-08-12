@@ -1,11 +1,9 @@
-# Scandiweb React.js developer test
+# React.js developer test
 
 ## Overview
 Minimalistic storefront created with Reactjs, and consuming a graphQL endpoint
 
-### :link: [Test application here!](https://peustratt-scandiweb-react-frontend.netlify.app/)
-
-
+### :link: [Test webapp here!](https://peustratt-scandiweb-react-frontend.netlify.app/)
 
 ## ▶️ Inicializing
 - ### **Pre-requirements**
