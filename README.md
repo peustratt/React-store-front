@@ -3,7 +3,7 @@
 ## Overview
 Minimalistic storefront created with Reactjs, and consuming a graphQL endpoint
 
-### :link: [Test webapp here!](https://peustratt-scandiweb-react-frontend.netlify.app/)
+### :link: [Test webapp here!](https://peustratt-react-store-front.netlify.app/)
 
 ## ▶️ Inicializing
 - ### **Pre-requirements**
